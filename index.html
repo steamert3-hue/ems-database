@@ -3,197 +3,256 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>USMS & EMS PANEL v9.6</title>
+<title>EMS CONTROL PANEL v13 FULL</title>
 
 <style>
 body{
-    margin:0;
-    font-family:Segoe UI;
-    background:#0b1220;
-    color:#e5e7eb;
+margin:0;
+font-family:Segoe UI;
+background:#050914;
+color:#e5e7eb;
 }
 
-/* TOP NAVBAR */
+/* LOGIN */
+.login{
+position:fixed;
+inset:0;
+background:#000;
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:9999;
+}
+.login-box{
+background:#111827;
+padding:20px;
+border-radius:10px;
+text-align:center;
+border:1px solid #1f2937;
+}
+input{
+padding:8px;
+border-radius:6px;
+border:1px solid #334155;
+background:#0b1220;
+color:white;
+}
+
+/* TOPBAR */
 .topbar{
-    height:55px;
-    background:#050a14;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 20px;
-    border-bottom:1px solid #1f2937;
+height:55px;
+background:#050814;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 15px;
+border-bottom:1px solid #1f2937;
 }
 .topbar h1{
-    font-size:14px;
-    color:#38bdf8;
-    letter-spacing:2px;
-}
-.topbar button{
-    background:#38bdf8;
-    border:none;
-    padding:8px 12px;
-    border-radius:6px;
-    cursor:pointer;
-    font-weight:bold;
+color:#38bdf8;
+font-size:13px;
+letter-spacing:2px;
 }
 
 /* LAYOUT */
 .container{
-    display:flex;
-    height:calc(100vh - 55px);
+display:flex;
+height:calc(100vh - 55px);
 }
 
 /* SIDEBAR */
 .sidebar{
-    width:260px;
-    background:#0f172a;
-    border-right:1px solid #1f2937;
-    overflow:auto;
+width:220px;
+background:#0f172a;
+border-right:1px solid #1f2937;
 }
 .menu-item{
-    padding:12px;
-    border-bottom:1px solid #1f2937;
-    cursor:pointer;
-    font-size:13px;
+padding:12px;
+border-bottom:1px solid #1f2937;
+cursor:pointer;
+font-size:13px;
 }
 .menu-item:hover{
-    background:#1f2937;
-    color:#38bdf8;
+background:#1f2937;
+color:#38bdf8;
 }
 
 /* CONTENT */
 .content{
-    flex:1;
-    padding:20px;
-    overflow:auto;
+flex:1;
+padding:15px;
+overflow:auto;
 }
 
 .card{
-    background:#111827;
-    padding:20px;
-    margin-bottom:15px;
-    border-radius:10px;
-    border:1px solid #1f2937;
+background:#111827;
+padding:15px;
+border-radius:10px;
+margin-bottom:12px;
+border:1px solid #1f2937;
 }
 
-.card h2{
-    color:#38bdf8;
-    font-size:18px;
+h2{color:#38bdf8;margin-top:0;}
+
+/* DISPATCH */
+.dispatch{
+background:#0b1220;
+padding:10px;
+border-radius:8px;
+margin-bottom:10px;
+border:1px solid #1f2937;
 }
+
+.badge{
+padding:3px 8px;
+border-radius:20px;
+font-size:11px;
+}
+.active{background:#16a34a;}
+.closed{background:#6b7280;}
 
 /* PERSONEL */
-.personel-card{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-    gap:10px;
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:10px;
 }
-.p-card{
-    background:#0b1220;
-    padding:12px;
-    border-radius:8px;
-    border:1px solid #1f2937;
-}
-.badge{
-    padding:3px 8px;
-    border-radius:20px;
-    font-size:11px;
+.pcard{
+background:#0b1220;
+padding:10px;
+border-radius:8px;
+border:1px solid #1f2937;
 }
 .admin{background:#2563eb;}
-.doktor{background:#16a34a;}
-.paramedik{background:#f59e0b;color:black;}
-.tek{background:#7c3aed;}
+.doc{background:#16a34a;}
+.param{background:#f59e0b;color:black;}
+.tech{background:#7c3aed;}
 
-.login{
-    position:fixed;
-    inset:0;
-    background:#000;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+/* RP */
+.rp{
+background:#0b1220;
+padding:10px;
+border-radius:8px;
+border:1px solid #1f2937;
+margin-bottom:10px;
 }
-.box{
-    background:#111827;
-    padding:25px;
-    border-radius:10px;
-    text-align:center;
-}
-input{
-    padding:10px;
-    width:200px;
-}
+pre{white-space:pre-wrap;color:#34d399;}
+
 button{
-    margin-top:10px;
+cursor:pointer;
+border:none;
+padding:6px 8px;
+border-radius:6px;
+margin-top:5px;
 }
+.copy{background:#38bdf8;}
+.add{background:#16a34a;color:white;}
+.close{background:#ef4444;color:white;}
 </style>
 </head>
 
 <body>
 
-<div class="topbar">
-    <h1>USMS EMS CONTROL PANEL</h1>
-    <button onclick="toggleMenu()">MENU</button>
+<!-- LOGIN -->
+<div id="login" class="login">
+<div class="login-box">
+<h3>EMS GİRİŞ</h3>
+<input id="pass" type="password" placeholder="şifre">
+<br><br>
+<button onclick="login()">GİR</button>
+</div>
 </div>
 
-<div id="login" class="login">
-    <div class="box">
-        <h3>GİRİŞ</h3>
-        <input id="pass" type="password" placeholder="şifre">
-        <br>
-        <button onclick="check()">GİR</button>
-    </div>
+<div class="topbar">
+<h1>EMS CONTROL PANEL v13 FULL SYSTEM</h1>
 </div>
 
 <div class="container">
 
-<div id="sidebar" class="sidebar">
-    <div class="menu-item" onclick="go('hakkinda')">Hakkında</div>
-    <div class="menu-item" onclick="go('personel')">Personel</div>
+<!-- SIDEBAR -->
+<div class="sidebar">
+<div class="menu-item" onclick="go('home')">Ana Panel</div>
+<div class="menu-item" onclick="go('dispatch')">Dispatch</div>
+<div class="menu-item" onclick="go('personel')">Personel</div>
+<div class="menu-item" onclick="go('rp')">ME / DO</div>
 </div>
 
+<!-- CONTENT -->
 <div class="content">
 
-<div id="hakkinda" class="card">
-<h2>Hakkında</h2>
-USMS EMS panel sistem upgrade v9.6
+<!-- HOME -->
+<div id="home" class="card">
+<h2>Ana Panel</h2>
+Sistem aktif - EMS kontrol merkezi çalışıyor.
 </div>
 
+<!-- DISPATCH -->
+<div id="dispatch" class="card">
+<h2>Dispatch Sistemi</h2>
+<button class="add" onclick="newCall()">+ OLAY EKLE</button>
+<div id="calls"></div>
+</div>
+
+<!-- PERSONEL -->
 <div id="personel" class="card">
-<h2>Personel</h2>
+<h2>Personel Listesi</h2>
 
-<div class="personel-card">
+<input id="search" onkeyup="search()" placeholder="Ara...">
 
-<div class="p-card">
-Musa<br>
-<span class="badge admin">Admin</span>
+<button class="add" onclick="add()">+ EKLE</button>
+
+<div id="grid" class="grid"></div>
 </div>
 
-<div class="p-card">
-Ahmet<br>
-<span class="badge doktor">Doktor</span>
+<!-- RP -->
+<div id="rp" class="card">
+<h2>ME / DO RP Komutları</h2>
+
+<div class="rp">
+<pre id="m1">/me hastanın bilincini kontrol eder ve damar yolu açar.
+/do hasta tepki veriyor mu?</pre>
+<button class="copy" onclick="copy('m1')">KOPYALA</button>
 </div>
 
-<div class="p-card">
-Mehmet<br>
-<span class="badge paramedik">Paramedik</span>
+<div class="rp">
+<pre id="m2">/me turnikeyi uygular ve kanamayı durdurur.
+/do kanama kontrol altında mı?</pre>
+<button class="copy" onclick="copy('m2')">KOPYALA</button>
 </div>
 
-<div class="p-card">
-Ali<br>
-<span class="badge tek">Teknik</span>
+<div class="rp">
+<pre id="m3">/me 2mg midazolam IV uygular.
+/do hasta sedasyona yanıt verdi mi?</pre>
+<button class="copy" onclick="copy('m3')">KOPYALA</button>
 </div>
 
-</div>
 </div>
 
 </div>
 </div>
 
 <script>
+
 const correct="musaku32";
 
-function check(){
+let calls=[
+{type:"Silahlı Yaralanma",loc:"Grove Street",status:"active"},
+{type:"Düşme",loc:"Sandy Hospital",status:"active"}
+];
+
+let staff=[
+{name:"Musa",role:"admin"},
+{name:"Ahmet",role:"doc"},
+{name:"Mehmet",role:"param"},
+{name:"Ali",role:"tech"}
+];
+
+function login(){
 if(document.getElementById("pass").value===correct){
 document.getElementById("login").style.display="none";
+render();
+renderStaff();
+renderCalls();
 }else{
 alert("Hatalı şifre");
 }
@@ -203,10 +262,82 @@ function go(id){
 document.getElementById(id).scrollIntoView({behavior:"smooth"});
 }
 
-function toggleMenu(){
-let s=document.getElementById("sidebar");
-s.style.display=s.style.display==="none"?"block":"none";
+/* DISPATCH */
+function renderCalls(){
+let c=document.getElementById("calls");
+c.innerHTML="";
+calls.forEach((x,i)=>{
+c.innerHTML+=`
+<div class="dispatch">
+<b>${x.type}</b><br>
+📍 ${x.loc}<br>
+<span class="badge ${x.status==='active'?'active':'closed'}">${x.status}</span><br>
+<button class="close" onclick="closeCall(${i})">KAPAT</button>
+</div>`;
+});
 }
+
+function newCall(){
+let t=prompt("Olay:");
+let l=prompt("Lokasyon:");
+if(t&&l){
+calls.push({type:t,loc:l,status:"active"});
+renderCalls();
+}
+}
+
+function closeCall(i){
+calls[i].status="closed";
+renderCalls();
+}
+
+/* PERSONEL */
+function renderStaff(){
+let g=document.getElementById("grid");
+g.innerHTML="";
+staff.forEach((p,i)=>{
+g.innerHTML+=`
+<div class="pcard">
+<b>${p.name}</b><br>
+<span class="${p.role} badge">${p.role}</span><br>
+<button class="close" onclick="del(${i})">Sil</button>
+</div>`;
+});
+}
+
+function add(){
+let n=prompt("İsim:");
+let r=prompt("rol admin/doc/param/tech:");
+if(n){
+staff.push({name:n,role:r});
+renderStaff();
+}
+}
+
+function del(i){
+staff.splice(i,1);
+renderStaff();
+}
+
+function search(){
+let v=document.getElementById("search").value.toLowerCase();
+document.querySelectorAll(".pcard").forEach(c=>{
+c.style.display=c.innerText.toLowerCase().includes(v)?"block":"none";
+});
+}
+
+/* RP COPY */
+function copy(id){
+navigator.clipboard.writeText(document.getElementById(id).innerText);
+alert("Kopyalandı");
+}
+
+/* INIT */
+function render(){
+renderCalls();
+renderStaff();
+}
+
 </script>
 
 </body>
