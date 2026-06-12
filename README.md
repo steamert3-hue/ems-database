@@ -1,75 +1,130 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Resmi Yönetim Sistemi</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --bg-main: #0f172a;
-            --bg-sidebar: #1e293b;
-            --bg-card: #1e293b;
-            --accent-color: #ef4444;
-            --accent-hover: #dc2626;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border-color: #475569;
-        }
+<li class="menu-item" onclick="scrollSec('about')">🏥 Hakkımızda</li>
+<li class="menu-item" onclick="scrollSec('personnel')">👥 Personel Listesi</li>
+<li class="menu-item" onclick="scrollSec('academy')">📚 Eğitim Akademisi</li>
+<li class="menu-item" onclick="scrollSec('announcements')">📢 Duyurular</li>
+<li class="menu-item" onclick="scrollSec('leadership')">⭐ Yönetim Kadrosu</li><!-- EMS SUPERVISOR EK BÖLÜMLER -->
 
-        /* Tüm ekranı kaplayan ve taşmayı ana gövdede engelleyen ayar */
-        html, body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden !important; /* Dış çerçevenin bozulmasını engeller */
-        }
+<div id="about" class="section-card">
+    <h2>EMS SUPERVISOR DEPARTMENT</h2>
 
-        /* --- GİRİŞ EKRANI --- */
-        #login-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
+    <div class="info-box success-info">
+        EMS Supervisor Department, Los Santos EMS bünyesinde görev yapan sağlık personellerinin yönetimi, eğitim faaliyetleri ve operasyonel denetimlerinden sorumludur.
+    </div>
 
-        .login-card {
-            background: rgba(30, 41, 59, 0.95);
-            border: 1px solid var(--border-color);
-            padding: 2.5rem;
-            border-radius: 16px;
-            width: 90%;
-            max-width: 420px;
-            text-align: center;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
-        }
+    <pre>
+MİSYONUMUZ
 
-        .login-logo {
-            width: 80px;
-            height: 80px;
-            background: var(--accent-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 2.2rem;
-            color: white;
-        }
+• EMS standartlarını korumak
+• Personel eğitimlerini yürütmek
+• Olay yeri yönetimini sağlamak
+• Sağlık hizmetlerinde kaliteyi artırmak
+• EMS personellerinin gelişimini desteklemek
 
-        .login-card h2 { font-size: 1.4rem; margin-bottom: 0.5rem; font-weight: 700; }
-        .login-card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem; }
+VİZYONUMUZ
 
-        .input-group { position: relative; margin-bottom: 1.
+Şehir genelinde en disiplinli ve profesyonel
+sağlık teşkilatını oluşturmak.
+    </pre>
+</div>
+
+<div id="leadership" class="section-card">
+    <h2>YÖNETİM KADROSU</h2>
+
+    <pre>
+EMS SUPERVISOR
+━━━━━━━━━━━━━━━━━━━━━━
+
+Supervisor
+• Marco Alvarez
+
+Assistant Supervisor
+• BOŞ
+
+Chief Paramedic
+• BOŞ
+
+Training Officer
+• BOŞ
+
+Field Coordinator
+• BOŞ
+    </pre>
+</div>
+
+<div id="personnel" class="section-card">
+    <h2>PERSONEL LİSTESİ</h2>
+
+    <pre>
+AKTİF PERSONEL
+
+PARAMEDIC
+━━━━━━━━━━━━━━━━━━━━━━
+• İsim Soyisim
+• İsim Soyisim
+• İsim Soyisim
+
+EMT
+━━━━━━━━━━━━━━━━━━━━━━
+• İsim Soyisim
+• İsim Soyisim
+• İsim Soyisim
+
+TRAINEE
+━━━━━━━━━━━━━━━━━━━━━━
+• İsim Soyisim
+• İsim Soyisim
+    </pre>
+</div>
+
+<div id="academy" class="section-card">
+    <h2>EMS AKADEMİ</h2>
+
+    <div class="info-box">
+        EMS personellerinin tamamlaması gereken eğitim modülleri.
+    </div>
+
+    <pre>
+TEMEL EĞİTİMLER
+
+✓ CPR / AED
+✓ Travma Yönetimi
+✓ Kanama Kontrolü
+✓ Kırık ve Çıkık Müdahalesi
+✓ Telsiz Kullanımı
+
+İLERİ EĞİTİMLER
+
+✓ Taktik EMS
+✓ Çoklu Yaralı Yönetimi
+✓ İleri Yaşam Desteği
+✓ Kritik Hasta Nakli
+✓ Operasyonel Liderlik
+    </pre>
+</div>
+
+<div id="announcements" class="section-card">
+    <h2>EMS DUYURULARI</h2>
+
+    <div class="info-box med-info">
+        Güncel EMS duyuruları bu bölümde yayınlanacaktır.
+    </div>
+
+    <pre>
+[12.06.2026]
+
+EMS Supervisor toplantısı
+Saat: 21:00
+
+━━━━━━━━━━━━━━━━━━━━━━
+
+[11.06.2026]
+
+Yeni personel alımları başlamıştır.
+
+━━━━━━━━━━━━━━━━━━━━━━
+
+[10.06.2026]
+
+Taktik EMS eğitimi tamamlanmıştır.
+    </pre>
+</div>
