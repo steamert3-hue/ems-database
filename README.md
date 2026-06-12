@@ -88,29 +88,4 @@
         }
 
         .topbar {
-            background: var(--bg-sidebar); padding: 0.8rem; border-radius: 8px; margin-bottom: 1rem;
-            display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border-color);
-        }
-
-        .search-box { position: relative; width: 100%; max-width: 300px; }
-        .search-box i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
-        .search-box input {
-            width: 100%; padding: 8px 10px 8px 38px; background: var(--bg-main);
-            border: 1px solid var(--border-color); border-radius: 6px; color: white; outline: none; font-size: 0.85rem;
-        }
-
-        .panel-section { display: none; }
-        .panel-section.active-section { display: block; }
-
-        .page-header { margin-bottom: 1rem; border-left: 4px solid var(--accent-color); padding-left: 8px; }
-        .page-header h1 { font-size: 1.3rem; font-weight: 700; }
-
-        /* Gruplama Kutuları */
-        .group-container {
-            background: var(--bg-card); border: 1px solid var(--border-color);
-            border-radius: 10px; padding: 1.2rem; margin-bottom: 1.5rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        .group-title {
-            font-size: 1rem; font-weight: 600; color: #38bdf8; margin-
+            background: var(--bg-sidebar); padding: 0.8rem; border-radius: 8px
