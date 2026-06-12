@@ -191,7 +191,7 @@
                 
                 <!-- BÖLÜM 1: MUAYENE -->
                 <div id="section-muayene" class="panel-section active-section">
-                    <div class="page-header"><h1>Detaylı Muayene Komutları</h1></div>
+                    <div class="page-header"><h1>Detaylı Muayene Komut Arşivi</h1></div>
                     
                     <!-- Grup A -->
                     <div class="group-container">
@@ -201,21 +201,21 @@
                                 <div class="command-text">/me hızlı adımlarla yaralının yanına çöker, çevre güvenliğini kontrol ettikten sonra hastanın omuzlarından sarsar.</div>
                                 <div class="command-desc">Olay yerine varışta çevre güvenliği ve ilk fiziksel temas.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/me hızlı adımlarla yaralının yanına çöker, çevre güvenliğini kontrol ettikten sonra hastanın omuzlarından sarsar.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                         <div class="command-row">
                             <div>
                                 <div class="command-text">/me "Beni duyuyor musunuz? İyi misiniz?" diyerek yüksek sesle hastaya seslenir ve tepkisini ölçer.</div>
                                 <div class="command-desc">Sesli uyarana cevap arama aşaması.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/me \"Beni duyuyor musunuz? İyi misiniz?\" diyerek yüksek sesle hastaya seslenir ve tepkisini ölçer.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                         <div class="command-row">
                             <div>
                                 <div class="command-text">/do yaralının bilinci yerinde midir, herhangi bir sese veya sarsıntıya tepki veriyor mu?</div>
                                 <div class="command-desc">Karşı oyuncudan bilinç ve refleks durumu talep eder.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/do yaralının bilinci yerinde midir, herhangi bir sese veya sarsıntıya tepki veriyor mu?')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                     </div>
 
@@ -227,21 +227,21 @@
                                 <div class="command-text">/me sağ elinin işaret ve orta parmağını hastanın şah damarına (karotis arter) bastırarak nabız almaya çalışır.</div>
                                 <div class="command-desc">Şah damarı üzerinden ilk mekanik nabız kontrolü.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/me sağ elinin işaret ve orta parmağını hastanın şah damarına (karotis arter) bastırarak nabız almaya çalışır.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                         <div class="command-row">
                             <div>
-                                <div class="command-text">/me diğer eliyle hastanın bileğindeki radyal arteri bularak nabız ritmini saniye üzerinden takip eder.</div>
+                                <div class="command-text">/me magnesium_diğer eliyle hastanın bileğindeki radyal arteri bularak nabız ritmini saniye üzerinden takip eder.</div>
                                 <div class="command-desc">Bilek üzerinden destekleyici nabız kontrolü.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/me diğer eliyle hastanın bileğindeki radyal arteri bularak nabız ritmini saniye üzerinden takip eder.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                         <div class="command-row">
                             <div>
                                 <div class="command-text">/do şah damarından ve bilekten alınan nabız stabil midir, dakikada ortalama kaç atıyor?</div>
                                 <div class="command-desc">Nabzın hızı ve kalitesini öğrenmek için kullanılan durum sorusu.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/do şah damarından ve bilekten alınan nabız stabil midir, dakikada ortalama kaç atıyor?')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                     </div>
 
@@ -250,121 +250,121 @@
                         <div class="group-title"><i class="fa-solid fa-stethoscopes"></i> Grup C: Solunum Analizi (Bak-Dinle-Hisset)</div>
                         <div class="command-row">
                             <div>
-                                <div class="command-text">/me kulağını hastanın ağız ve burun bölgesine yaklaştırır, gözleriyle göğüs kafesinin hareketlerini gözlemler.</div>
+                                <div class="command-text">/me kulağını hastanın ağız ve burun bölgesine yaklaştırır, gözleriyle göğüs kafesinin hareketlerini gözlemler (Bak-Dinle-Hisset).</div>
                                 <div class="command-desc">Bak-Dinle-Hisset yöntemiyle solunum tespiti.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/me kulağını hastanın ağzına yaklaştırır, gözleriyle göğüs kafesinin inip kalkışını izler (Bak-Dinle-Hisset).')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                         <div class="command-row">
                             <div>
                                 <div class="command-text">/do hastanın solunumu var mıdır, nefes alıp verirken göğüs kafesi düzenli hareket ediyor mu?</div>
-                                <div class="command-desc">Solunum ritmini öğrenmek üzere yöneltilen /do sorusu.</div>
+                                <div class="command-desc">Solunum ritmini öğrenmek üzere yöneltilen durum sorusu.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/do hastanın solunumu var mıdır, nefes alıp verirken göğüs kafesi düzenli hareket ediyor mu?')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                         <div class="command-row">
                             <div>
-                                <div class="command-text">/me travma çantasını açıp stetoskopu çıkartır, kulaklığı takarak diyaframı hastanın göğüs ve sırt bölgelerine koyar.</div>
-                                <div class="command-desc">Akciğer seslerini dinlemek için stetoskop hazırlığı ve kullanımı.</div>
+                                <div class="command-text">/me medikal çantadan stetoskopu çıkarıp kulaklığı takar, diyaframı hastanın göğsüne koyarak akciğerleri dinler.</div>
+                                <div class="command-desc">Akciğer seslerini dinlemek için stetoskop kullanımı.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/me travma çantasını açıp stetoskopu çıkartır, kulaklığı takarak diyaframı hastanın göğüs ve sırt bölgelerine koyar.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                         <div class="command-row">
                             <div>
-                                <div class="command-text">/do stetoskop ile dinlenen akciğerlerden hırıltı, sıvı sesi veya anormal bir sürtünme sesi geliyor mu?</div>
+                                <div class="command-text">/do stetoskop ile dinlenen akciğerlerden hırıltı, sıvı sesi veya anormal bir ses geliyor mu?</div>
                                 <div class="command-desc">Akciğer yaralanması veya iç kanama tespiti için durum sorusu.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/do stetoskop ile dinlenen akciğerlerden hırıltı, sıvı sesi veya anormal bir sürtünme sesi geliyor mu?')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                     </div>
 
                     <!-- Grup D -->
                     <div class="group-container">
-                        <div class="group-title"><i class="fa-solid fa-eye"></i> Grup D: Göz Bebekleri ve Nörolojik Değerlendirme</div>
+                        <div class="group-title"><i class="fa-solid fa-eye"></i> Grup D: Göz Bebekleri ve Kafa Travması</div>
                         <div class="command-row">
                             <div>
-                                <div class="command-text">/me cebinden muayene fenerini (pupila feneri) çıkartır, hastanın göz kapaklarını parmaklarıyla aralayarak ışık tutar.</div>
+                                <div class="command-text">/me cebinden muayene fenerini çıkartır, hastanın göz kapaklarını aralayarak ışık tutar.</div>
                                 <div class="command-desc">Göz bebeklerinin ışık refleks ölçümü.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/me cebinden muayene fenerini (pupila feneri) çıkartır, hastanın göz kapaklarını parmaklarıyla aralayarak ışık tutar.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                         <div class="command-row">
                             <div>
-                                <div class="command-text">/do göz bebeklerinin ışığa tepkisi nasıldır? (İzokorik mi, ışıkta küçülme refleksi gösteriyor mu?)</div>
-                                <div class="command-desc">Kafa travması ve beyin fonksiyonları tespiti için /do sorusu.</div>
+                                <div class="command-text">/do göz bebeklerinin ışığa tepkisi nasıldır? (Büyüme/Küçülme veya Anizokori var mı?)</div>
+                                <div class="command-desc">Kafa travması ve nörolojik hasar tespiti için /do sorusu.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/do göz bebeklerinin ışığa tepkisi nasıldır? (İzokorik mi, ışıkta küçülme refleksi gösteriyor mu?)')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                     </div>
                 </div>
 
                 <!-- BÖLÜM 2: TEDAVİ -->
                 <div id="section-tedavi" class="panel-section">
-                    <div class="page-header"><h1>Tedavi ve Operasyonlar</h1></div>
+                    <div class="page-header"><h1>Tedavi, Enjeksiyon ve Operasyonlar</h1></div>
                     
                     <!-- Grup A -->
                     <div class="group-container">
-                        <div class="group-title"><i class="fa-solid fa-droplet-slash"></i> Grup A: Aktif Kanama Durdurma ve Pansuman</div>
+                        <div class="group-title"><i class="fa-solid fa-droplet-slash"></i> Grup A: Aktif Kanama Durdurma ve Baskı</div>
                         <div class="command-row">
                             <div>
-                                <div class="command-text">/me çantasından steril gazlı bezleri hızla çıkarıp yaralı ve kanamalı bölgenin üzerine kapatarak iki eliyle baskı uygular.</div>
-                                <div class="command-desc">Açık yaraya elle kompresyon/baskı uygulama aşaması.</div>
+                                <div class="command-text">/me çantasından steril gazlı bezleri çıkarıp kanamalı bölgeye yerleştirir ve baskı uygulamaya başlar.</div>
+                                <div class="command-desc">Açık yaraya elle kompresyon uygulama aşaması.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/me çantasından steril gazlı bezleri hızla çıkarıp yaralı ve kanamalı bölgenin üzerine kapatarak iki eliyle baskı uygular.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                         <div class="command-row">
                             <div>
                                 <div class="command-text">/do yapılan yoğun baskı neticesinde kanama durmuş mu yoksa gazlı bezleri aşarak devam ediyor mu?</div>
                                 <div class="command-desc">Kanamayı kontrol altına alma durum sorusu.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/do yapılan yoğun baskı neticesinde kanama durmuş mu yoksa gazlı bezleri aşarak devam ediyor mu?')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                         <div class="command-row">
                             <div>
-                                <div class="command-text">/me ilk katmanı kaldırmadan üzerine ek sargı bezi koyar, rulo bandajla baskıyı bozmadan yarayı sıkıca sarar.</div>
-                                <div class="command-desc">Sargı bezini sabitleme ve bandajlama rölü.</div>
+                                <div class="command-text">/me rulo sargı bezini alarak yaralı bölgeyi sıkıca sarar, düğüm atarak sabitler.</div>
+                                <div class="command-desc">Sargı bezini sabitleme ve bandajlama rolü.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/me ilk katmanı kaldırmadan üzerine ek sargı bezi koyar, rulo bandajla baskıyı bozmadan yarayı sıkıca sarar.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                     </div>
 
                     <!-- Grup B -->
                     <div class="group-container">
-                        <div class="group-title"><i class="fa-solid fa-syringe"></i> Grup B: Damar Yolu Açma ve İlaç/Serum Enjeksiyonu</div>
+                        <div class="group-title"><i class="fa-solid fa-syringe"></i> Grup B: Damar Yolu Açma ve Serum/Morfin Enjeksiyonu</div>
                         <div class="command-row">
                             <div>
-                                <div class="command-text">/me turnikeyi çıkartıp hastanın dirsek üstüne bağlar, alkollü pamukla el bileği veya dirsek önü damar hattını dezenfekte eder.</div>
+                                <div class="command-text">/me turnikeyi hastanın koluna bağlar, alkollü pamuk ile damar hattını silerek dezenfekte eder.</div>
                                 <div class="command-desc">Turnike bağlama ve bölge sterilizasyonu.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/me turnikeyi çıkartıp hastanın dirsek üstüne bağlar, alkollü pamukla el bileği veya dirsek önü damar hattını dezenfekte eder.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                         <div class="command-row">
                             <div>
-                                <div class="command-text">/me steril paketinden çıkardığı uygun boyuttaki intraketi (branül) 30 derecelik açıyla damara doğru batırır.</div>
+                                <div class="command-text">/me uygun boyuttaki intraketi (branül) damara paralel açıyla batırarak damar yolunu açar.</div>
                                 <div class="command-desc">Damar çeperine girme anı rolü.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/me steril paketinden çıkardığı uygun boyuttaki intraketi (branül) 30 derecelik açıyla damara doğru batırır.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                         <div class="command-row">
                             <div>
-                                <div class="command-text">/do intraketin şeffaf haznesine (arkasına) kan gelmiş midir, damar yolu başarılı mıdır?</div>
+                                <div class="command-text">/do intraketin arkasından kan gelmiş midir, damar yolu başarıyla açılmış mıdır?</div>
                                 <div class="command-desc">Damar yolunun yerinde olup olmadığını teyit eden soru.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/do intraketin şeffaf haznesine (arkasına) kan gelmiş midir, damar yolu başarılı mıdır?')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                         <div class="command-row">
                             <div>
-                                <div class="command-text">/me kılavuz iğneyi geri çekip plastik kanülü damarda bırakır, serum setinin ucunu takarak vanasını sonuna kadar açar.</div>
+                                <div class="command-text">/me serum setini intrakete bağlar, mandallı vanayı açarak sıvı akışını başlatır.</div>
                                 <div class="command-desc">Serumu aktif olarak bağlama ve akış başlatma.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/me kılavuz iğneyi geri çekip plastik kanülü damarda bırakır, serum setinin ucunu takarak vanasını sonuna kadar açar.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                         <div class="command-row">
                             <div>
-                                <div class="command-text">/me ampul halindeki ağrı kesici ve morfini kırar, enjektöre çekerek serumun ilaç verme portundan sisteme aktarır.</div>
+                                <div class="command-text">/me ampul halindeki ağrı kesici ve morfini kırar, şırıngaya çekerek serum lastiğinden enjekte eder.</div>
                                 <div class="command-desc">Hastanın acısını dindirmek için morfin/ağrı kesici enjeksiyonu.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/me ampul halindeki ağrı kesici ve morfini kırar, enjektöre çekerek serumun ilaç verme portundan sisteme aktarır.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                     </div>
 
@@ -373,104 +373,97 @@
                         <div class="group-title"><i class="fa-solid fa-heart-crack"></i> Grup C: İleri Yaşam Desteği - CPR ve Defibrilatör (Şok)</div>
                         <div class="command-row">
                             <div>
-                                <div class="command-text">/me ellerini üst üste getirip kenetler, hastanın sternum kemiğinin ortasına yerleştirerek dakikada 100 bası olacak şekilde CPR'a başlar.</div>
+                                <div class="command-text">/me ellerini kenetleyerek hastanın göğüs kemiğinin ortasına yerleştirir ve 30:2 ritmiyle kalp masajına başlar.</div>
                                 <div class="command-desc">Kalp masajı ritmini başlatma komutu.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/me ellerini üst üste getirip kenetler, hastanın sternum kemiğinin ortasına yerleştirerek dakikada 100 bası olacak şekilde CPR\'a başlar.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                         <div class="command-row">
                             <div>
-                                <div class="command-text">/me defibrilatör cihazının güç düğmesine basar, jel sürdüğü pedleri hastanın sağ köprücük kemiği altına ve sol meme altına yapıştırır.</div>
-                                <div class="command-desc">Şok cihazı pedlerinin yerleştirilmesi.</div>
+                                <div class="command-text">/me defibrilatör cihazını açar, pedleri hastanın göğsüne yapıştırıp "Alandan çekilin!" diye bağırır ve şok butonuna basar.</div>
+                                <div class="command-desc">Elektroşok cihazı ve pedlerin uygulanması.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/me defibrilatör cihazının güç düğmesine basar, jel sürdüğü pedleri hastanın sağ köprücük kemiği altına ve sol meme altına yapıştırır.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                         <div class="command-row">
                             <div>
-                                <div class="command-text">/me "Cihaz analiz ediyor, alandan çekilin!" diyerek çevredekileri uzaklaştırır ve şarj olan kırmızı şok butonuna basar.</div>
-                                <div class="command-desc">Elektroşok akımını hastanın vücuduna verme rolü.</div>
+                                <div class="command-text">/do uygulanan CPR ve şoklama neticesinde hastanın kalbi tekrar atmaya başlamış mıdır?</div>
+                                <div class="command-desc">Kritik canlandırma işleminin nihai durum tespiti.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/me \"Cihaz analiz ediyor, alandan çekilin!\" diyerek çevredekileri uzaklaştırır ve şarj olan kırmızı şok butonuna basar.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
-                        </div>
-                        <div class="command-row">
-                            <div>
-                                <div class="command-text">/do verilen elektroşok ve aralıksız CPR uygulaması neticesinde hastanın kalbi geri dönmüş müdür, monitörde ritim var mı?</div>
-                                <div class="command-desc">Kritik canlandırma işleminin sonucunu soran /do sorusu.</div>
-                            </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/do verilen elektroşok ve aralıksız CPR uygulaması neticesinde hastanın kalbi geri dönmüş müdür, monitörde ritim var mı?')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                     </div>
 
                     <!-- Grup D -->
                     <div class="group-container">
-                        <div class="group-title"><i class="fa-solid fa-crutch"></i> Grup D: Kemik Kırıkları, Çıkıklar ve Atelleme Prosedürü</div>
+                        <div class="group-title"><i class="fa-solid fa-crutch"></i> Grup D: Kemik Kırıkları, Çıkıklar ve Atelleme</div>
                         <div class="command-row">
                             <div>
-                                <div class="command-text">/me kırık şüphesi olan bölgeyi (kol/bacak) iki eliyle uç kısımlardan stabil tutarak anatomik hizaya getirmeye çalışır.</div>
+                                <div class="command-text">/me hasarlı ekstremiteyi (kol/bacak) nazikçe kavrayarak anatomik pozisyona getirir ve altını destekler.</div>
                                 <div class="command-desc">Kırık uzvu sabitleme ve düzeltme hareketi.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/me kırık şüphesi olan bölgeyi (kol/bacak) iki eliyle uç kısımlardan stabil tutarak anatomik hizaya getirmeye çalışır.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                         <div class="command-row">
                             <div>
-                                <div class="command-text">/me travma çantasından uygun boyuttaki vakumlu/şişme ateli çıkarır, kırık uzvun altına yerleştirerek sargılarla kilitler.</div>
+                                <div class="command-text">/me medikal çantadan şişme veya vakumlu ateli çıkarır, ekstremiteye sararak sabitler.</div>
                                 <div class="command-desc">Uzuv oynamasın diye atel montajı yapma.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/me travma çantasından uygun boyuttaki vakumlu/şişme ateli çıkarır, kırık uzvun altına yerleştirerek sargılarla kilitler.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                         <div class="command-row">
                             <div>
                                 <div class="command-text">/do kırık kemik uçları sabitlenmiş midir, uzuvda herhangi bir iç/dış hareket kalmış mıdır?</div>
                                 <div class="command-desc">Atelleme işleminin başarısını kontrol eden /do sorusu.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/do kırık kemik uçları sabitlenmiş midir, uzuvda herhangi bir iç/dış hareket kalmış mıdır?')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                     </div>
 
                     <!-- Grup E -->
                     <div class="group-container">
-                        <div class="group-title"><i class="fa-solid fa-scissors"></i> Grup E: İleri Cerrahi Müdahale ve Ameliyathane İşlemleri</div>
+                        <div class="group-title"><i class="fa-solid fa-scissors"></i> Grup E: İleri Cerrahi Ameliyathane Operasyonu</div>
                         <div class="command-row">
                             <div>
-                                <div class="command-text">/me steril neşteri (bistüri) sağ eline alır, dezenfekte edilen hat üzerinden deriyi pürüzsüzce keserek cerrahi sahayı açar.</div>
+                                <div class="command-text">/me neşteri kavrar, steril edilen hat üzerinden deriyi pürüzsüz bir şekilde keserek insizyonu açar.</div>
                                 <div class="command-desc">Ameliyatı başlatma, ilk kesiyi atma rolü.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/me steril neşteri (bistüri) sağ eline alır, dezenfekte edilen hat üzerinden deriyi pürüzsüzce keserek cerrahi sahayı açar.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                         <div class="command-row">
                             <div>
                                 <div class="command-text">/me ekartörleri yerleştirerek dokuyu iki yana açar, içeride hasar gören kas ve organ dokularını görünür hale getirir.</div>
                                 <div class="command-desc">Cerrahi sahayı genişletme aşaması.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/me ekartörleri yerleştirerek dokuyu iki yana açar, içeride hasar gören kas ve organ dokularını görünür hale getirir.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                         <div class="command-row">
                             <div>
-                                <div class="command-text">/me cerrahi penset yardımıyla doku derinliklerine iner, içeride sıkışan mermi çekirdeğini/yabancı cismi kavrayarak dışarı çıkartır.</div>
-                                <div class="command-desc">Vücuttan kurşun veya yabancı cisim çıkarma anı.</div>
+                                <div class="command-text">/me penset yardımıyla dokuyu aralar, içerideki mermi çekirdeğini/yabancı cismi bularak cerrahi kaba çıkartır.</div>
+                                <div class="command-desc">Vücuttan kurşun veya yabancı madde çıkarma anı.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/me cerrahi penset yardımıyla doku derinliklerine iner, içeride sıkışan mermi çekirdeğini/yabancı cismi kavrayarak dışarı çıkartır.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                         <div class="command-row">
                             <div>
-                                <div class="command-text">/me koter cihazını kullanarak yırtılan iç damar uçlarını tek tek yakar ve batın içindeki kanamayı tamamen durdurur.</div>
+                                <div class="command-text">/me bistüri ve koter cihazını kullanarak iç kanama odağını yakar ve kanamayı tamamen durdurur.</div>
                                 <div class="command-desc">İç kanamayı koterle yakarak durdurma aşaması.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/me koter cihazını kullanarak yırtılan iç damar uçlarını tek tek yakar ve batın içindeki kanamayı tamamen durdurur.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                         <div class="command-row">
                             <div>
-                                <div class="command-text">/me portegüyü eline alıp ucuna emilebilir cerrahi ipliği takar, kesilen tüm doku katmanlarını içeriden dışarıya doğru diker.</div>
+                                <div class="command-text">/me portegüyü eline alır, iğne ipliği geçirerek kesilen doku katmanlarını anatomik olarak dikmeye başlar.</div>
                                 <div class="command-desc">İç dokuları ve cildi cerrahi dikişle kapatma.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/me portegüyü eline alıp ucuna emilebilir cerrahi ipliği takar, kesilen tüm doku katmanlarını içeriden dışarıya doğru diker.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                         <div class="command-row">
                             <div>
-                                <div class="command-text">/do operasyon esnasında hastanın hayati fonksiyonları ne durumdadır, cerrahi işlem başarıyla tamamlanmış mıdır?</div>
+                                <div class="command-text">/do cerrahi müdahale başarılı geçmiş ve hastanın durumu normale dönmüştür.</div>
                                 <div class="command-desc">Ameliyatın bittiğini ve hastanın stabil olduğunu bildiren nihai durum rolü.</div>
                             </div>
-                            <button class="copy-btn" onclick="copyToClipboard('/do operasyon esnasında hastanın hayati fonksiyonları ne durumdadır, cerrahi işlem başarıyla tamamlanmış mıdır?')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                            <button class="copy-btn" onclick="copyCmd(this)"><i class="fa-solid fa-copy"></i> Kopyala</button>
                         </div>
                     </div>
                 </div>
@@ -528,7 +521,9 @@
             window.scrollTo(0, 0);
         }
 
-        function copyToClipboard(text) {
+        // Tırnak işaretlerinden etkilenmeyen dinamik kopyalama fonksiyonu
+        function copyCmd(btn) {
+            const text = btn.closest('.command-row').querySelector('.command-text').innerText;
             navigator.clipboard.writeText(text).then(() => {
                 alert("Komut başarıyla panoya kopyalandı!");
             });
