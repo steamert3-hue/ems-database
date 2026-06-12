@@ -201,7 +201,7 @@
             display: flex;
             flex-direction: column;
             height: 100vh;
-            overflow-y: auto;
+            overflow: hidden; /* Ana dış çerçevenin taşmasını engelledik */
         }
 
         .topbar {
@@ -211,6 +211,7 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0;
         }
 
         .search-box {
@@ -254,8 +255,11 @@
             font-weight: 600;
         }
 
+        /* AŞAĞI YUKARI KAYMA ÖZELLİĞİ EKLENEN YER */
         .main-body {
             padding: 2rem;
+            flex-grow: 1;
+            overflow-y: auto; /* İçeriğin dikeyde kaymasını sağladık */
         }
 
         .page-header {
@@ -320,6 +324,7 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            flex-shrink: 0;
         }
 
         .copy-btn:hover {
