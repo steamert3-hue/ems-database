@@ -1,382 +1,211 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>USMS & EMS ULTRA SURGICAL DATABASE v9.5</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #090d16;
-            color: #e2e8f0;
-            margin: 0;
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-        }
-        #login-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #030712;
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            transition: opacity 0.5s ease;
-        }
-        .login-box {
-            background-color: #111827;
-            padding: 40px;
-            border-radius: 10px;
-            border: 2px solid #1f2937;
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5);
-            text-align: center;
-            width: 380px;
-        }
-        .login-box h1 {
-            color: #38bdf8;
-            font-size: 18px;
-            margin-bottom: 5px;
-            letter-spacing: 2px;
-        }
-        .login-box p {
-            color: #6b7280;
-            font-size: 12px;
-            margin-bottom: 25px;
-            font-weight: bold;
-        }
-        .login-box input[type="password"] {
-            width: 100%;
-            padding: 12px;
-            background-color: #030712;
-            border: 1px solid #334155;
-            border-radius: 6px;
-            color: #ffffff;
-            font-size: 16px;
-            text-align: center;
-            outline: none;
-            box-sizing: border-box;
-            margin-bottom: 15px;
-            transition: border-color 0.2s;
-        }
-        .login-box input[type="password"]:focus {
-            border-color: #38bdf8;
-        }
-        .login-box button {
-            width: 100%;
-            padding: 12px;
-            background-color: #38bdf8;
-            color: #030712;
-            border: none;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        .login-box button:hover {
-            background-color: #0ea5e9;
-        }
-        #error-msg {
-            color: #f87171;
-            font-size: 13px;
-            margin-top: 15px;
-            display: none;
-            font-weight: 600;
-        }
-        .sidebar {
-            width: 350px;
-            background-color: #111827;
-            border-right: 2px solid #1f2937;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 5px 0 20px rgba(0,0,0,0.7);
-        }
-        .sidebar-header {
-            padding: 25px;
-            background-color: #030712;
-            border-bottom: 2px solid #1f2937;
-            text-align: center;
-        }
-        .sidebar-header h3 {
-            margin: 0;
-            color: #38bdf8;
-            font-size: 15px;
-            letter-spacing: 2px;
-        }
-        .sidebar-header p {
-            margin: 5px 0 0 0;
-            font-size: 11px;
-            color: #6b7280;
-            font-weight: bold;
-        }
-        .menu-list {
-            list-style: none;
-            padding: 10px;
-            margin: 0;
-            overflow-y: auto;
-            flex-grow: 1;
-        }
-        .menu-item {
-            padding: 10px 15px;
-            margin-bottom: 4px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 12.5px;
-            font-weight: 600;
-            transition: all 0.15s ease-in-out;
-            color: #9ca3af;
-            border-left: 3px solid transparent;
-        }
-        .menu-item:hover {
-            background-color: #1f2937;
-            color: #38bdf8;
-            border-left-color: #38bdf8;
-            padding-left: 20px;
-        }
-        .content-area {
-            flex-grow: 1;
-            padding: 40px;
-            overflow-y: auto;
-            background-color: #030712;
-        }
-        .section-card {
-            background-color: #111827;
-            border-radius: 8px;
-            padding: 30px;
-            margin-bottom: 35px;
-            border: 1px solid #1f2937;
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
-        }
-        .section-card h2 {
-            margin-top: 0;
-            color: #38bdf8;
-            border-bottom: 2px solid #1f2937;
-            padding-bottom: 12px;
-            font-size: 22px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .info-box {
-            background-color: #030712;
-            border-left: 4px solid #38bdf8;
-            padding: 12px 18px;
-            margin-bottom: 20px;
-            font-size: 13.5px;
-            color: #9ca3af;
-            line-height: 1.5;
-        }
-        .med-info { border-left-color: #fbbf24; }
-        .danger-info { border-left-color: #f87171; }
-        .success-info { border-left-color: #34d399; }
-        pre {
-            background-color: #020617;
-            padding: 18px;
-            border-radius: 6px;
-            border: 1px solid #1f2937;
-            overflow-x: auto;
-            color: #34d399;
-            font-family: 'Consolas', 'Courier New', monospace;
-            font-size: 14px;
-            line-height: 1.7;
-            white-space: pre-wrap;
-        }
-        .personel-search {
-            width: 100%;
-            padding: 12px 14px;
-            margin-bottom: 15px;
-            background-color: #030712;
-            border: 1px solid #334155;
-            border-radius: 6px;
-            color: #ffffff;
-            outline: none;
-            box-sizing: border-box;
-            font-size: 14px;
-        }
-        .personel-search:focus {
-            border-color: #38bdf8;
-        }
-        .personel-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-            overflow: hidden;
-            border-radius: 8px;
-        }
-        .personel-table th,
-        .personel-table td {
-            padding: 12px 14px;
-            border-bottom: 1px solid #1f2937;
-            text-align: left;
-            font-size: 13px;
-        }
-        .personel-table th {
-            background-color: #030712;
-            color: #38bdf8;
-            font-weight: 700;
-        }
-        .personel-table tr:hover {
-            background-color: #1f2937;
-        }
-        .badge {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 999px;
-            font-size: 12px;
-            font-weight: 700;
-        }
-        .badge-admin { background: #1d4ed8; color: #fff; }
-        .badge-doktor { background: #16a34a; color: #fff; }
-        .badge-paramedik { background: #f59e0b; color: #111827; }
-        .badge-teknik { background: #7c3aed; color: #fff; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>USMS & EMS PANEL v9.6</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Segoe UI;
+    background:#0b1220;
+    color:#e5e7eb;
+}
+
+/* TOP NAVBAR */
+.topbar{
+    height:55px;
+    background:#050a14;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 20px;
+    border-bottom:1px solid #1f2937;
+}
+.topbar h1{
+    font-size:14px;
+    color:#38bdf8;
+    letter-spacing:2px;
+}
+.topbar button{
+    background:#38bdf8;
+    border:none;
+    padding:8px 12px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* LAYOUT */
+.container{
+    display:flex;
+    height:calc(100vh - 55px);
+}
+
+/* SIDEBAR */
+.sidebar{
+    width:260px;
+    background:#0f172a;
+    border-right:1px solid #1f2937;
+    overflow:auto;
+}
+.menu-item{
+    padding:12px;
+    border-bottom:1px solid #1f2937;
+    cursor:pointer;
+    font-size:13px;
+}
+.menu-item:hover{
+    background:#1f2937;
+    color:#38bdf8;
+}
+
+/* CONTENT */
+.content{
+    flex:1;
+    padding:20px;
+    overflow:auto;
+}
+
+.card{
+    background:#111827;
+    padding:20px;
+    margin-bottom:15px;
+    border-radius:10px;
+    border:1px solid #1f2937;
+}
+
+.card h2{
+    color:#38bdf8;
+    font-size:18px;
+}
+
+/* PERSONEL */
+.personel-card{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:10px;
+}
+.p-card{
+    background:#0b1220;
+    padding:12px;
+    border-radius:8px;
+    border:1px solid #1f2937;
+}
+.badge{
+    padding:3px 8px;
+    border-radius:20px;
+    font-size:11px;
+}
+.admin{background:#2563eb;}
+.doktor{background:#16a34a;}
+.paramedik{background:#f59e0b;color:black;}
+.tek{background:#7c3aed;}
+
+.login{
+    position:fixed;
+    inset:0;
+    background:#000;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.box{
+    background:#111827;
+    padding:25px;
+    border-radius:10px;
+    text-align:center;
+}
+input{
+    padding:10px;
+    width:200px;
+}
+button{
+    margin-top:10px;
+}
+</style>
 </head>
+
 <body>
 
-<div id="login-overlay">
-    <div class="login-box">
-        <h1>SİSTEM ERİŞİM KONTROLÜ</h1>
-        <p>TACTICAL MEDIC ENCRYPTED DATABASE</p>
-        <input type="password" id="password-field" placeholder="Erişim Şifresini Girin" onkeydown="if(event.key === 'Enter') checkPassword()">
-        <button onclick="checkPassword()">YETKİLENDİR</button>
-        <div id="error-msg">⚠️ GEÇERSİZ ERİŞİM ŞİFRESİ!</div>
+<div class="topbar">
+    <h1>USMS EMS CONTROL PANEL</h1>
+    <button onclick="toggleMenu()">MENU</button>
+</div>
+
+<div id="login" class="login">
+    <div class="box">
+        <h3>GİRİŞ</h3>
+        <input id="pass" type="password" placeholder="şifre">
+        <br>
+        <button onclick="check()">GİR</button>
     </div>
 </div>
 
-<div class="sidebar">
-    <div class="sidebar-header">
-        <h3>USMS & EMS ACADEMY</h3>
-        <p>ADVANCED SURGICAL PROTOCOLS v9.5</p>
-    </div>
-    <ul class="menu-list">
-        <li class="menu-item" onclick="scrollSec('sec1')">1. Olay Yeri Giriş & Güvenlik</li>
-        <li class="menu-item" onclick="scrollSec('sec2')">2. Vital Takip & ABC Değerlendirmesi</li>
-        <li class="menu-item" onclick="scrollSec('sec3')">3. Sahada Silahlı Yaralanma Kontrolü</li>
-        <li class="menu-item" onclick="scrollSec('sec4')">4. Delici / Saplanmış Cisim Stabilizasyonu</li>
-        <li class="menu-item" onclick="scrollSec('sec5')">5. Şrapnel & Blast Hava Giriş Koruması</li>
-        <li class="menu-item" onclick="scrollSec('sec6')">6. Sahada Krikotiroidotomi</li>
-        <li class="menu-item" onclick="scrollSec('sec7')">7. Göğüs Açılması & İğne Dekompresyonu</li>
-        <li class="menu-item" onclick="scrollSec('sec8')">8. Kimyasal / KBRN Arındırma</li>
-        <li class="menu-item" onclick="scrollSec('sec9')">9. Kafa Travması & BOS Sızıntı Analizi</li>
-        <li class="menu-item" onclick="scrollSec('sec10')">10. Termal / Kimyasal Ağır Yanık Hatları</li>
-        <li class="menu-item" onclick="scrollSec('sec11')">11. Araç Sıkışması & KED Sabitleme</li>
-        <li class="menu-item" onclick="scrollSec('sec12')">12. Kırık / Çıkık & SAM Atel Uygulaması</li>
-        <li class="menu-item" onclick="scrollSec('sec13')">13. Periferik Damar Yolu & Plazma Yükleme</li>
-        <li class="menu-item" onclick="scrollSec('sec14')">14. Taktik Kemik İçi (EZ-IO) Matkap Hattı</li>
-        <li class="menu-item" onclick="scrollSec('sec15')">15. Kritik İlaç Endikasyonları (IV/IO)</li>
-        <li class="menu-item" onclick="scrollSec('sec16')">16. Turnike Gevşetme (Conversion)</li>
-        <li class="menu-item" onclick="scrollSec('sec17')">17. Taktik Kardiyak Arrest (CPR / AED)</li>
-        <li class="menu-item" onclick="scrollSec('sec18')">18. Taktik Telsiz Protokolü (9-Line)</li>
-        <li class="menu-item" onclick="scrollSec('sec19')">19. Muharebe Psikolojisi & Şok Kontrolü</li>
-        <li class="menu-item" onclick="scrollSec('sec20')">20. Çoklu Afet Sahası Triyaj Sistemi</li>
-        <li class="menu-item" onclick="scrollSec('sec21')">21. Gelişmiş Şah Damarı Santral Kateteri</li>
-        <li class="menu-item" onclick="scrollSec('sec22')">22. Radyolojik Tanı (BT / MR / Röntgen)</li>
-        <li class="menu-item" onclick="scrollSec('sec23')">23. Ameliyathane Anestezi & Sterilizasyon</li>
-        <li class="menu-item" onclick="scrollSec('sec24')">24. Cerrahi Kesim & Koter Damar Yakma</li>
-        <li class="menu-item" onclick="scrollSec('sec25')">25. Derin Kurşun Çıkarma & Organ Dikimi</li>
-        <li class="menu-item" onclick="scrollSec('sec26')">26. Açık Kırıklara Çivili Fiksasyon</li>
-        <li class="menu-item" onclick="scrollSec('sec27')">27. Ameliyatta Acil Kan Transfüzyonu</li>
-        <li class="menu-item" onclick="scrollSec('sec28')">28. Göğüs Tüpü Takılması (Torasentez)</li>
-        <li class="menu-item" onclick="scrollSec('sec29')">29. Yoğun Bakım Ekstübasyon (Uyandırma)</li>
-        <li class="menu-item" onclick="scrollSec('sec30')">30. Yasal İdam / İnfaz Enjeksiyonu</li>
-        <li class="menu-item" onclick="scrollSec('sec31')">31. Klinik Ölüm (Exitus / Ölüm Onay)</li>
-        <li class="menu-item" onclick="scrollSec('sec32')">32. Hakkımızda</li>
-        <li class="menu-item" onclick="scrollSec('sec33')">33. Personel Listesi</li>
-    </ul>
+<div class="container">
+
+<div id="sidebar" class="sidebar">
+    <div class="menu-item" onclick="go('hakkinda')">Hakkında</div>
+    <div class="menu-item" onclick="go('personel')">Personel</div>
 </div>
 
-<div class="content-area">
-    <div id="sec32" class="section-card">
-        <h2>32. Hakkımızda</h2>
-        <div class="info-box">
-            USMS EMS Academy, düzenli yönetim, eğitim takibi ve personel organizasyonu için hazırlanmış gelişmiş bir paneldir.
-        </div>
-        <pre>Bu sistem; hızlı erişim, kolay kullanım ve düzenli bilgi akışı amacıyla tasarlanmıştır.
-Gerekli bölümler menü üzerinden anında açılabilir.</pre>
-    </div>
+<div class="content">
 
-    <div id="sec33" class="section-card">
-        <h2>33. Personel Listesi</h2>
-        <div class="info-box success-info">
-            Personel listesini aşağıdan arayabilir ve görev bazlı görüntüleyebilirsin.
-        </div>
-        <input type="text" class="personel-search" id="personelSearch" onkeyup="filterPersonel()" placeholder="Personel ara...">
-        <table class="personel-table" id="personelTable">
-            <thead>
-                <tr>
-                    <th>İsim</th>
-                    <th>Görev</th>
-                    <th>Durum</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>[İsim 1]</td>
-                    <td><span class="badge badge-admin">Komutan</span></td>
-                    <td>Aktif</td>
-                </tr>
-                <tr>
-                    <td>[İsim 2]</td>
-                    <td><span class="badge badge-doktor">Doktor</span></td>
-                    <td>Aktif</td>
-                </tr>
-                <tr>
-                    <td>[İsim 3]</td>
-                    <td><span class="badge badge-paramedik">Paramedik</span></td>
-                    <td>Aktif</td>
-                </tr>
-                <tr>
-                    <td>[İsim 4]</td>
-                    <td><span class="badge badge-teknik">Teknik Destek</span></td>
-                    <td>Pasif</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<div id="hakkinda" class="card">
+<h2>Hakkında</h2>
+USMS EMS panel sistem upgrade v9.6
+</div>
+
+<div id="personel" class="card">
+<h2>Personel</h2>
+
+<div class="personel-card">
+
+<div class="p-card">
+Musa<br>
+<span class="badge admin">Admin</span>
+</div>
+
+<div class="p-card">
+Ahmet<br>
+<span class="badge doktor">Doktor</span>
+</div>
+
+<div class="p-card">
+Mehmet<br>
+<span class="badge paramedik">Paramedik</span>
+</div>
+
+<div class="p-card">
+Ali<br>
+<span class="badge tek">Teknik</span>
+</div>
+
+</div>
+</div>
+
+</div>
 </div>
 
 <script>
-const CORRECT_PASSWORD = "musaku32";
+const correct="musaku32";
 
-function checkPassword() {
-    const inputField = document.getElementById("password-field");
-    const errorMsg = document.getElementById("error-msg");
-    const overlay = document.getElementById("login-overlay");
-
-    if (inputField.value === CORRECT_PASSWORD) {
-        overlay.style.opacity = "0";
-        setTimeout(() => {
-            overlay.style.display = "none";
-        }, 500);
-    } else {
-        errorMsg.style.display = "block";
-        inputField.value = "";
-        inputField.focus();
-    }
+function check(){
+if(document.getElementById("pass").value===correct){
+document.getElementById("login").style.display="none";
+}else{
+alert("Hatalı şifre");
+}
 }
 
-function scrollSec(id) {
-    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+function go(id){
+document.getElementById(id).scrollIntoView({behavior:"smooth"});
 }
 
-function filterPersonel() {
-    const input = document.getElementById("personelSearch");
-    const filter = input.value.toUpperCase();
-    const table = document.getElementById("personelTable");
-    const tr = table.getElementsByTagName("tr");
-
-    for (let i = 1; i < tr.length; i++) {
-        const td1 = tr[i].getElementsByTagName("td")[0];
-        const td2 = tr[i].getElementsByTagName("td")[1];
-        if (td1 || td2) {
-            const txtValue = (td1.textContent || td1.innerText) + " " + (td2.textContent || td2.innerText);
-            tr[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
-        }
-    }
+function toggleMenu(){
+let s=document.getElementById("sidebar");
+s.style.display=s.style.display==="none"?"block":"none";
 }
 </script>
 
