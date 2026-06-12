@@ -3,108 +3,781 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>EMS DATABASE v9.5</title>
+    <title>USMS & EMS ULTRA SURGICAL DATABASE v9.5</title>
+    <!-- FontAwesome İkonları ve Google Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-main: #0a0a0c;
-            --bg-sidebar: #131317;
-            --bg-card: #1a1a20;
-            --accent-color: #7dd3fc;
-            --text-main: #cbd5e1;
-            --text-muted: #64748b;
-            --border-color: #1e293b;
-            --code-bg: #0f172a;
-            --code-text: #94a3b8;
+            --bg-main: #030712;
+            --bg-sidebar: #111827;
+            --bg-card: #1f2937;
+            --accent-color: #38bdf8;
+            --accent-hover: #0ea5e9;
+            --text-main: #e2e8f0;
+            --text-muted: #6b7280;
+            --border-color: #334155;
+            --code-bg: #020617;
+            --code-text: #34d399;
         }
 
-        body {
+        /* Sayfa Geneli ve Akıcı Kaydırma */
+        html, body {
             background-color: var(--bg-main) !important;
             color: var(--text-main) !important;
+            margin: 0 !important;
+            padding: 0 !important;
             font-family: 'Inter', sans-serif;
-            margin: 0; padding: 0; height: 100vh; overflow: hidden;
+            height: 100vh !important;
+            overflow: hidden !important;
         }
 
-        /* Giriş Ekranı */
+        /* --- SİSTEM GİRİŞ EKRANI --- */
         #login-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: var(--bg-main); z-index: 9999;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #030712;
+            z-index: 9999;
             display: flex; justify-content: center; align-items: center;
         }
         .login-box {
             background-color: var(--bg-sidebar); padding: 40px; border-radius: 12px;
-            border: 1px solid var(--border-color); text-align: center; width: 300px;
+            border: 2px solid var(--border-color); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5);
+            text-align: center; width: 90%; max-width: 380px;
         }
-        .login-box h1 { color: var(--accent-color); font-size: 16px; margin-bottom: 20px; }
-        .login-box input {
-            width: 100%; padding: 12px; background: var(--bg-main); border: 1px solid var(--border-color);
-            border-radius: 6px; color: white; margin-bottom: 15px; box-sizing: border-box; text-align: center;
+        .login-box h1 { color: var(--accent-color); font-size: 18px; margin-bottom: 5px; letter-spacing: 2px; }
+        .login-box p { color: var(--text-muted); font-size: 11px; margin-bottom: 25px; font-weight: bold; }
+        .login-box input[type="password"] {
+            width: 100%; padding: 12px; background-color: #030712; border: 1px solid var(--border-color);
+            border-radius: 6px; color: #ffffff; font-size: 16px; text-align: center; outline: none; box-sizing: border-box; margin-bottom: 15px;
         }
+        .login-box input[type="password"]:focus { border-color: var(--accent-color); }
         .login-box button {
-            width: 100%; padding: 12px; background: var(--accent-color); color: #0a0a0c;
-            border: none; border-radius: 6px; font-weight: bold; cursor: pointer;
+            width: 100%; padding: 12px; background-color: var(--accent-color); color: #030712;
+            border: none; border-radius: 6px; font-size: 14px; font-weight: bold; cursor: pointer; transition: background-color 0.2s;
+        }
+        .login-box button:hover { background-color: var(--accent-hover); }
+        #error-msg { color: #f87171; font-size: 13px; margin-top: 15px; display: none; font-weight: 600; }
+
+        /* --- DÜZEN VE PANEL YAPISI --- */
+        #main-app {
+            display: none;
+            height: 100vh;
+            grid-template-rows: auto 1fr;
+        }
+        
+        @media (min-width: 768px) {
+            #main-app {
+                grid-template-rows: 1fr;
+                grid-template-columns: 350px 1fr;
+            }
         }
 
-        /* Ana Panel */
-        #main-app { display: none; height: 100vh; grid-template-columns: 300px 1fr; }
-        .sidebar { background-color: var(--bg-sidebar); border-right: 1px solid var(--border-color); padding: 20px; overflow-y: auto; }
-        .content-area { padding: 40px; overflow-y: auto; }
-        .section-card { background-color: var(--bg-card); border-radius: 8px; padding: 25px; margin-bottom: 30px; border: 1px solid var(--border-color); }
-        .section-card h2 { color: var(--accent-color); border-bottom: 1px solid var(--border-color); padding-bottom: 10px; font-size: 18px; display: flex; justify-content: space-between; align-items: center; }
-        pre { background-color: var(--code-bg); padding: 15px; border-radius: 6px; color: var(--code-text); line-height: 1.6; font-family: 'JetBrains Mono'; white-space: pre-wrap; }
-        .card-copy-btn { background: rgba(125, 211, 252, 0.1); border: 1px solid var(--accent-color); color: var(--accent-color); padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+        /* Üst Arama Çubuğu (Mobil İçin Üstte, Masaüstünde İçerik Üstünde) */
+        .top-search-bar {
+            background-color: var(--bg-sidebar);
+            padding: 15px;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .search-box-container {
+            position: relative;
+            width: 100%;
+        }
+        .search-box-container i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+        .search-box-container input {
+            width: 100%;
+            padding: 12px 12px 12px 45px;
+            background-color: var(--bg-main);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: white;
+            outline: none;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        .search-box-container input:focus {
+            border-color: var(--accent-color);
+        }
+
+        /* Sol Navigasyon Menüsü */
+        .sidebar {
+            background-color: var(--bg-sidebar);
+            border-right: 2px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .sidebar-header {
+            padding: 25px;
+            background-color: #030712;
+            border-bottom: 2px solid var(--border-color);
+            text-align: center;
+        }
+        .sidebar-header h3 { margin: 0; color: var(--accent-color); font-size: 15px; letter-spacing: 2px; }
+        .sidebar-header p { margin: 5px 0 0 0; font-size: 11px; color: var(--text-muted); font-weight: bold; }
+        
+        .menu-list {
+            list-style: none; padding: 10px; margin: 0;
+            overflow-y: auto; flex-grow: 1;
+            -webkit-overflow-scrolling: touch;
+        }
+        .menu-item {
+            padding: 12px 15px; margin-bottom: 5px; border-radius: 6px;
+            cursor: pointer; font-size: 13px; font-weight: 600;
+            transition: all 0.15s ease-in-out; color: #9ca3af;
+            border-left: 3px solid transparent;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .menu-item:hover, .menu-item.active {
+            background-color: rgba(56, 189, 248, 0.1); color: var(--accent-color);
+            border-left-color: var(--accent-color);
+        }
+
+        /* Sağ İçerik Alanı */
+        .content-area {
+            padding: 20px;
+            overflow-y: auto;
+            background-color: var(--bg-main);
+            -webkit-overflow-scrolling: touch;
+            display: flex;
+            flex-direction: column;
+        }
+        @media (min-width: 768px) {
+            .content-area { padding: 40px; }
+        }
+
+        /* Kart Yapısı */
+        .section-card {
+            background-color: var(--bg-sidebar); border-radius: 8px;
+            padding: 20px; margin-bottom: 35px; border: 1px solid var(--border-color);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
+        }
+        @media (min-width: 768px) {
+            .section-card { padding: 30px; }
+        }
+        
+        .section-card h2 {
+            margin-top: 0; color: var(--accent-color); border-bottom: 2px solid var(--border-color);
+            padding-bottom: 12px; font-size: 20px; text-transform: uppercase; letter-spacing: 0.5px;
+            display: flex; justify-content: space-between; align-items: center; gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* Bilgi Kutuları */
+        .info-box {
+            background-color: #030712; border-left: 4px solid var(--accent-color);
+            padding: 12px 18px; margin-bottom: 20px; font-size: 13.5px; color: #9ca3af; line-height: 1.5;
+        }
+        .med-info { border-left-color: #fbbf24; }
+        .danger-info { border-left-color: #f87171; }
+        .success-info { border-left-color: #34d399; }
+        
+        /* Kod Alanları ve Kopyalama Butonu */
+        .code-container {
+            position: relative;
+            margin-top: 15px;
+        }
+        pre {
+            background-color: var(--code-bg); padding: 18px; border-radius: 6px;
+            border: 1px solid var(--border-color); overflow-x: auto; color: var(--code-text);
+            font-family: 'JetBrains Mono', 'Consolas', monospace; font-size: 13.5px; line-height: 1.7;
+            white-space: pre-wrap; margin: 0;
+        }
+        .card-copy-btn {
+            background-color: rgba(52, 211, 153, 0.15);
+            border: 1px solid var(--code-text);
+            color: var(--code-text);
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+        .card-copy-btn:hover {
+            background-color: var(--code-text);
+            color: var(--code-bg);
+        }
     </style>
 </head>
 <body>
 
+    <!-- ŞİFRE EKRANI KATMANI -->
     <div id="login-overlay">
         <div class="login-box">
-            <h1>EMS SİSTEM GİRİŞİ</h1>
-            <input type="password" id="password-field" placeholder="Şifre" onkeydown="if(event.key === 'Enter') checkPassword()">
+            <h1>SİSTEM ERİŞİM KONTROLÜ</h1>
+            <p>TACTICAL MEDIC ENCRYPTED DATABASE</p>
+            <input type="password" id="password-field" placeholder="Erişim Şifresini Girin" onkeydown="if(event.key === 'Enter') checkPassword()">
             <button onclick="checkPassword()">YETKİLENDİR</button>
+            <div id="error-msg">⚠️ GEÇERSİZ ERİŞİM ŞİFRESİ!</div>
         </div>
     </div>
 
+    <!-- ANA PANEL SİSTEMİ -->
     <div id="main-app">
-        <div class="sidebar">
-            <h3 style="color: var(--accent-color)">EMS DATABASE v9.5</h3>
-            <div style="color: var(--text-muted); font-size: 13px;">31 Protokol Erişim Yetkisi.</div>
-        </div>
-        <div class="content-area" id="content">
-            <div id="sec1" class="section-card">
-                <h2>1. Olay Yeri Giriş <button class="card-copy-btn" onclick="copyText(this)">Kopyala</button></h2>
-                <pre>/me İlk yardım çantasını hazırlar, çevre güvenliğini kontrol eder.</pre>
+        <!-- SOL NAVİGASYON -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h3>USMS & EMS ACADEMY</h3>
+                <p>ADVANCED SURGICAL PROTOCOLS v9.5</p>
+            </div>
+            <ul class="menu-list">
+                <li class="menu-item active" onclick="scrollSec('sec1', this)"><i class="fa-solid fa-shield-halved"></i> 1. Olay Yeri Giriş</li>
+                <li class="menu-item" onclick="scrollSec('sec2', this)"><i class="fa-solid fa-heart-pulse"></i> 2. Vital Takip & ABC</li>
+                <li class="menu-item" onclick="scrollSec('sec3', this)"><i class="fa-solid fa-gun"></i> 3. Silahlı Yaralanma</li>
+                <li class="menu-item" onclick="scrollSec('sec4', this)"><i class="fa-solid fa-stethoscopes"></i> 4. Delici Cisim Sabitleme</li>
+                <li class="menu-item" onclick="scrollSec('sec5', this)"><i class="fa-solid fa-bomb"></i> 5. Şrapnel & Patlama</li>
+                <li class="menu-item" onclick="scrollSec('sec6', this)"><i class="fa-solid fa-scissors"></i> 6. Krikotiroidotomi</li>
+                <li class="menu-item" onclick="scrollSec('sec7', this)"><i class="fa-solid fa-droplet"></i> 7. İğne Dekompresyonu</li>
+                <li class="menu-item" onclick="scrollSec('sec8', this)"><i class="fa-solid fa-biohazard"></i> 8. KBRN Arındırma</li>
+                <li class="menu-item" onclick="scrollSec('sec9', this)"><i class="fa-solid fa-brain"></i> 9. Kafa Travması & BOS</li>
+                <li class="menu-item" onclick="scrollSec('sec10', this)"><i class="fa-solid fa-fire"></i> 10. Ağır Yanık Hatları</li>
+                <li class="menu-item" onclick="scrollSec('sec11', this)"><i class="fa-solid fa-truck-medical"></i> 11. Araç Sıkışması & KED</li>
+                <li class="menu-item" onclick="scrollSec('sec12', this)"><i class="fa-solid fa-bone"></i> 12. SAM Atel Uygulaması</li>
+                <li class="menu-item" onclick="scrollSec('sec13', this)"><i class="fa-solid fa-syringe"></i> 13. Damar Yolu & Plazma</li>
+                <li class="menu-item" onclick="scrollSec('sec14', this)"><i class="fa-solid fa-screwdriver-bevel"></i> 14. Kemik İçi Matkap (EZ-IO)</li>
+                <li class="menu-item" onclick="scrollSec('sec15', this)"><i class="fa-solid fa-pills"></i> 15. Kritik İlaçlar (IV/IO)</li>
+                <li class="menu-item" onclick="scrollSec('sec16', this)"><i class="fa-solid fa-clock"></i> 16. Turnike Gevşetme</li>
+                <li class="menu-item" onclick="scrollSec('sec17', this)"><i class="fa-solid fa-kit-medical"></i> 17. Kardiyak Arrest (CPR)</li>
+                <li class="menu-item" onclick="scrollSec('sec18', this)"><i class="fa-solid fa-radio"></i> 18. Telsiz Raporu (9-Line)</li>
+                <li class="menu-item" onclick="scrollSec('sec19', this)"><i class="fa-solid fa-head-side-virus"></i> 19. Muharebe Psikolojisi</li>
+                <li class="menu-item" onclick="scrollSec('sec20', this)"><i class="fa-solid fa-users-viewfinder"></i> 20. Afet Sahası Triyajı</li>
+                <li class="menu-item" onclick="scrollSec('sec21', this)"><i class="fa-solid fa-circle-h"></i> 21. Şah Damarı Kateteri</li>
+                <li class="menu-item" onclick="scrollSec('sec22', this)"><i class="fa-solid fa-x-ray"></i> 22. Radyolojik Tanı</li>
+                <li class="menu-item" onclick="scrollSec('sec23', this)"><i class="fa-solid fa-mask-ventilator"></i> 23. Anestezi & Sterilizasyon</li>
+                <li class="menu-item" onclick="scrollSec('sec24', this)"><i class="fa-solid fa-bolt"></i> 24. Cerrahi Kesim & Koter</li>
+                <li class="menu-item" onclick="scrollSec('sec25', this)"><i class="fa-solid fa-hand-holding-medical"></i> 25. Kurşun Çıkarma & Dikim</li>
+                <li class="menu-item" onclick="scrollSec('sec26', this)"><i class="fa-solid fa-link"></i> 26. Çivili Fiksasyon</li>
+                <li class="menu-item" onclick="scrollSec('sec27', this)"><i class="fa-solid fa-blood-water"></i> 27. Kan Transfüzyonu</li>
+                <li class="menu-item" onclick="scrollSec('sec28', this)"><i class="fa-solid fa-gabs"></i> 28. Göğüs Tüpü Takılması</li>
+                <li class="menu-item" onclick="scrollSec('sec29', this)"><i class="fa-solid fa-bed-pulse"></i> 29. Yoğun Bakım Uyandırma</li>
+                <li class="menu-item" onclick="scrollSec('sec30', this)"><i class="fa-solid fa-gavel"></i> 30. Yasal İdam Enjeksiyonu</li>
+                <li class="menu-item" onclick="scrollSec('sec31', this)"><i class="fa-solid fa-skull"></i> 31. Klinik Ölüm (Exitus)</li>
+            </ul>
+        </aside>
+
+        <!-- SAĞ İÇERİK ALANI VE ARAMA MOTORU -->
+        <div style="display: flex; flex-direction: column; overflow: hidden;">
+            <div class="top-search-bar">
+                <div class="search-box-container">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="search-input" onkeyup="filterContent()" placeholder="Tüm 31 protokol içinde akıllı arama yapın (Örn: Morfin, Kalp Masajı, Kurşun)...">
+                </div>
             </div>
             
-            <div id="sec31" class="section-card">
-                <h2>31. Klinik Ölüm <button class="card-copy-btn" onclick="copyText(this)">Kopyala</button></h2>
-                <pre>/do Yapılan tüm müdahalelere rağmen hastadan yanıt alınamadı.
-/me Ölüm saati: [SAAT] olarak not düşer.</pre>
+            <div class="content-area" id="content-container">
+
+                <div id="sec1" class="section-card">
+                    <h2>1. Olay Yeri Giriş & Güvenlik (Care Under Fire) <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box danger-info">Sıcak çatışma veya aktif tehdit varken tıbbi müdahale yapılmaz; öncelik tehdidin nötralize edilmesidir.</div>
+                    <div class="code-container"><pre>/me İlk yardım sırt çantasını (First Aid Jump Bag) kavrayarak hızlıca yaralının yanına çöker.
+/do Çevrede çapraz ateş, ikincil patlama riski veya biyolojik tehdit var mı?
+/me 6 mil kalınlığındaki siyah nitril taktik eldivenlerini (Black Talon) ellerine geçirir, yaralının omuz başlarını sertçe sarsar.
+/me Yaralının kulağına doğru bağırır: "US Marshals Medikal! Sesimi duyuyor musunuz? Kıpırdamayın!"
+/do Hastanın bilinci sesli ve ağrılı uyarana yanıt veriyor mu? Bilinç düzeyi nedir?</pre></div>
+                </div>
+
+                <div id="sec2" class="section-card">
+                    <h2>2. Vital Takip & ABC Değerlendirmesi <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box">Solunum ve dolaşım aynı onda kontrol edilerek hastanın klinik haritası çıkarılır.</div>
+                    <div class="code-container"><pre>/me Hastanın ağız içini parmağıyla kontrol ederek kan pıhtısı veya yabancı cisim olup olmadığına bakar.
+/do Hava yolunu tıkayan obstrüktif (engelleyici) bir durum söz konusu mu?
+/me Sağ elinin işaret ve orta parmağını hastanın şah damarına (Karotis arter) yerleştirerek 10 saniye basılı tutar.
+/do Nabız alınıyor mu? Nabız ritmik mi, ipliksi (zayıf) mi yoksa taşikardik mi?
+/me Masimo Rad-57 Taşınabilir Puls Oksimetre cihazının probunu hastanın işaret parmağına kelepçeler.
+/do Cihaz ekranında SpO2 (Oksijen Satürasyonu) ve Nabız (PR) değeri kaç olarak okunuyor?
+/me Yüzünü hastanın ağzına yaklaştırırken gözleriyle göğüs kafesinin inip kalkışını izler (Bak-Dinle-Hisset).
+/do Göğüs hareketleri simetrik mi? Dakikadaki solunum sayısı (Solunum Frekansı) ortalama kaç?</pre></div>
+                </div>
+
+                <div id="sec3" class="section-card">
+                    <h2>3. Sahada Silahlı Yaralanma Kontrolü (Gunshot Wound) <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box danger-info">Açık arter kanamalarında saniyeler içinde müdahale edilmezse hasta hipovolemik şoktan kaybedilir.</div>
+                    <div class="code-container"><pre>/me Tuff-Cut siyah titanyum medikal makasını çıkararak şahsın taktik yeleğini ve gömleğini hızla yukarı doğru keser.
+/me Kurşunun giriş ve çıkış deliklerini saptamak amacıyla hastanın sırtını ve gövdesini eliyle sıvazlar.
+/do Kurşun giriş-çıkış bölgeleri nerede? Arter yırtılmasına bağlı fışkıran aktif kanama var mı?
+/me Çantasından C-A-T Gen-7 Taktik Turnikeyi çıkarır, kanayan uzvun yaranın 5-7 cm yukarısına yerleştirir.
+/me Turnike sıkıştırma çubuğunu (Winch) saat yönünde çevirerek kan akışı tamamen kesilene kadar sıkar.
+/me Turnike sabitleme bandının üzerindeki "TIME" alanına kalemiyle güncel saati not düşer.
+/me Çantadan hemostatik (pıhtılaştırıcı) QuikClot Combat Gauze gazlı bezi çıkarır, kurşun deliğinin içerisine parmağıyla doldurur (Yara Paketleme).
+/me Deliğin üzerine iki eliyle vücut ağırlığını vererek 3 dakika boyunca aralıksız kompres uygular.
+/me Baskının stabil kalması için 6 inçlik İsrail Travma Bandajını (Emergency Bandage) yaranın üzerinden geçirerek sıkıca kilitler.
+/do Uzuvdaki aktif kanama tamamen bloke edildi mi? Sargı bezlerinden dışarı sızma var mı?</pre></div>
+                </div>
+
+                <div id="sec4" class="section-card">
+                    <h2>4. Delici / Saplanmış Cisim Stabilizasyonu <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box danger-info">Vücuda saplanan hiçbir yabancı cisim sahada çıkarılmaz. Cisim, girdiği damarın tamponu görevini görür.</div>
+                    <div class="code-container"><pre>/me Saplanan cismin (bıçak/demir çubuk) giriş açısını ve etrafındaki doku zedelenmesini inceler.
+/do Cisim göğüs duvarına veya batın (karın) bölgesine mi saplamış? Etrafında aktif sızıntı var mı?
+/me Çantadan rulo halindeki Kerlix gazlı bezleri çıkararak saplanan cismin her iki yanını kalın yastıkçıklar oluşturacak şekilde destekler.
+/me Cismin hareket edip iç organları veya damarları daha fazla parçalamasını önlemek için 3M Durapore cerrahi flasterler ile "X" şeklinde sarar.
+/me Sabitleme bandajını cismin etrafından dolayarak dokuyu tamamen hareketsiz kılacak biçimde kilitler.
+/do Saplanan cisim tamamen sabitlendi mi? Şahsın nefes alıp vermesiyle cisim yerinden oynuyor mu?</pre></div>
+                </div>
+
+                <div id="sec5" class="section-card">
+                    <h2>5. Şrapnel & Patlama Hasarı (Blast Injury) <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box med-info">Patlamalarda iç organ hasarı (blast lung) görünmeyen en büyük tehlikedir.</div>
+                    <div class="code-container"><pre>/me Patlamanın etkisiyle vücuda dağılan çoklu şrapnel giriş alanlarını ve yaygın doku kayıplarını inceler.
+/do Vücutta derin kas kaybı, masif kanama odaları veya doku nekrozu (ölümü) var mı?
+/me Açıkta kalan iç dokuların enfeksiyon kapmasını ve kurumasını önlemek için steril %0.9 Sodyum Klorür (Serum Fizyolojik) ile nemlendirilmiş kompresler hazırlar.
+/me Geniş yara yüzeylerini bu nemli kompreslerle örterek üzerini steril sargı bezleriyle kapatır.
+/do Şrapnel yaralarına uygulanan baskı ve pansuman sızıntı kanamaları kontrol altına aldı mı?</pre></div>
+                </div>
+
+                <div id="sec6" class="section-card">
+                    <h2>6. Sahada Krikotiroidotomi (Boğaz Delerek Hava Yolu Açma) <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box danger-info">Yüzü parçalanmış, çenesi kilitlenmiş veya boğazı tamamen şişmiş hastalarda acil cerrahi hava yolu açma yöntemidir.</div>
+                    <div class="code-container"><pre>/do Hastanın maksillofasiyal (yüz) travması nedeniyle maske veya tüp ile ağızdan hava yolu açılması imkansız.
+/me Çantadan H&H Cerrahi Krikotiroidotomi Kitini çıkarır. 11 numaralı cerrahi bisturiyi ve 6.0mm trakeal tüpü hazır eder.
+/me Hastanın boynundaki tiroid kıkırdak ile krikoid kıkırdak arasındaki Krikotiroid Membranı parmağıyla palpe eder (hisseder).
+/me Bölgeyi batikonlu bezle siler, 11 numaralı bisturi ile membranın üzerine 2 cm'lik yatay bir kesi atar.
+/do Kesiden trakeaya (soluk borusuna) girildiğinde dışarıya hafif hava/kan çıkışı gözlendi mi?
+/me Krikoid Dilatör (genişletici) aparatını delikten içeri sokarak trakea hattını genişletir.
+/me 6.0mm cerrahi krikotiroidotomi tüpünü delikten içeriye, soluk borusuna doğru dikkatlice iter.
+/me Tüpün kılavuzunu çeker, tüpün kafını (balonunu) BD 10cc'lik enjektörle hava basarak şişirir.
+/me Ambu maskesini (Bag Valve Mask) tüpün ucuna bağlayarak hastaya yapay solunum vermeye başlar.
+/do Göğüs kafesi ambu basılmasıyla simetrik olarak yükselmeye başladı mı? Hava yolu açıldı mı?</pre></div>
+                </div>
+
+                <div id="sec7" class="section-card">
+                    <h2>7. Göğüs Açılması & İğne Dekompresyonu <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box med-info">Akciğer zarları arasına dolan hava kalbe baskı yaparak ani ölüme (Tansiyon Pnömotoraks) yol açar.</div>
+                    <div class="code-container"><pre>/me Hastanın göğüs kafesindeki açık emici göğüs yarasını (Sucking Chest Wound) tespit eder.
+/me Çantadan üç tarafı yapışkanlı, tek yönlü valfe sahip HyFin Vent Chest Seal (Göğüs Bandı) çıkarır.
+/me Hastanın nefes verme anını bekler; nefes verme anında bandı yaranın üzerine yapıştırarak içeri hava girişini keser.
+/do Göğüs bandı takılmasına rağmen şahsın boyun venleri (damarları) şişiyor mu, trakea karşı tarafa kaymış mı?
+/me Hastanın tansiyon pnömotoraksa girdiğini anlayarak çantadan ARS (Air Decompression System) 14 Gauge (kalınlık) ve 3.25 inç uzunluğundaki Göğüs Dekompresyon İğnesini çıkarır.
+/me Hastanın köprücük kemiğinin ortasından aşağı inerek 2. ve 3. kaburga arasındaki boşluğu (Midklavikular Hat) belirler.
+/me İğneyi kaburganın üst sınırından göğüs duvarına dik (90 derece) açıyla hızla batırır.
+/do İğne içeri girdiğinde sıkışan hava "fıss" sesiyle dışarı tahliye olmaya başladı mı?
+/me İğnenin içindeki çelik kılavuzu çeker, plastik kateteri göğüs duvarında bırakarak sabitleme kapağını takar.
+/do Hastanın morarması (siyanoz) hafifledi mi, solunum derinliği normale dönüyor mu?</pre></div>
+                </div>
+
+                <div id="sec8" class="section-card">
+                    <h2>8. Kimyasal / KBRN Arındırma <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box danger-info">Kimyasal gaz maruziyetlerinde dekontaminasyon (arındırma) yapılmadan hastaneye sevk yapılmaz.</div>
+                    <div class="code-container"><pre>/me Kendi yüzündeki Avon C50 CBRN maskesini kontrol ettikten sonra çantasından yedek taktik gaz maskesini çıkarır.
+/me Maskeyi şahsın kafasından geçirerek kayışlarını sıkar, yüz hatlarına tam oturmasını sağlar.
+/me Çantadan steril distile su (salin) çıkarır, hastanın gözlerini ve yüzünü tazyikle sıkarak kimyasal ajanlardan temizler.
+/me Şahsın üzerindeki kontamine (gaz bulaşmış) kıyafetleri medikal makasla tamamen keserek uzaklaştırır.
+/me Oksijen tüpünün vanasını açar, maske hattına dakikada 12 litre olacak şekilde saf oksijen akışı başlatır.
+/do Şahsın kimyasal gaza bağlı akciğer hırıltısı ve gözlerindeki yanma hissi hafifliyor mu?</pre></div>
+                </div>
+
+                <div id="sec9" class="section-card">
+                    <h2>9. Kafa Travması & Beyin Sarsıntısı (BOS Kontrolü) <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box med-info">Kafa travmalarında intrakraniyal (kafa içi) basınç artışı pupillerden anlaşılır.</div>
+                    <div class="code-container"><pre>/me Medikal alüminyum LED kalem fenerini açarak hastanın göz kapaklarını yukarı kaldırır, ışığı gözlere dik açıyla tutar.
+/do Pupiller (göz bebekleri) ışığa tepki veriyor mu? İzokorik mi (eşit) yoksa biri büyük biri küçük mi (Anizokori)?
+/me Steril gazlı bezi hastanın kulağına ve burnuna bastırarak gelen sıvıyı inceler.
+/do Gazlı bezin üzerinde ortası kırmızı, etrafı sarı renkli halka (Hale Belirtisi - BOS Sızıntısı) oluştu mu?
+/me Bilinci yerinde olan şahsa nörolojik durum tespiti için sorular yöneltir: "Neredeyiz? Bugün ayın kaçı?"
+/do Şahsın kelimeleri yuvarlama, konuşma bozukluğu (disartri) veya retrograd amnezi durumu var mı?</pre></div>
+                </div>
+
+                <div id="sec10" class="section-card">
+                    <h2>10. Termal / Kimyasal Ağır Yanık Hatları <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box success-info">Yanık sahalarında sıvı kaybı aşırı olacağından alan hesaplaması (Dokuzlar Kuralı) yapılır.</div>
+                    <div class="code-container"><pre>/do Hastanın vücudundaki epidermal and dermal yanıkların derecesi nedir? Toplam vücut alanının yüzde kaçı yanmış?
+/me Yanık bölgesine yapışmamış olan kıyafet parçalarını medikal makasla cildi soymadan dikkatlice keser.
+/me Çantadan hidrojel bazlı BurnShield 40x60cm steril yanık sargısını çıkarır.
+/me Sargıyı yanık yüzeyine hava almayacak şekilde sererek doku ısısını düşürmeye ve acıyı kesmeye çalışır.
+/do Yanık bülleri (su kabarcıkları) patlatılmadan alan sterilize edildi mi? Şahsın acı çığlıkları hafifledi mi?</pre></div>
+                </div>
+
+                <div id="sec11" class="section-card">
+                    <h2>11. Araç Sıkışması & KED Sabitleme (Extrication) <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box success-info">Servikal omurga (boyun) yaralanmalarında ani hareket felce neden olur.</div>
+                    <div class="code-container"><pre>/me Araç koltuğunda sıkışan yaralının arkasına geçer, iki eliyle başı nötral pozisyona getirerek sabitler.
+/me Çantadan sert plastik Laerdal Stifneck C-Collar (Boyunluk) çıkarır, şahsın boyun ölçüsüne göre ayarlayıp takar.
+/me KED (Kendrick Extrication Device) yeleğini şahsın sırtına yerleştirir; göğüs, batın ve bacak kolonlarını sırasıyla sıkarak kilitler.
+/me Ekip arkadaşlarına komut verir: "Omurga eksenini bozmadan, 1-2-3 kaldırıyoruz."
+/me Şahsı araç koltuğundan düz bir hat halinde çekerek dışarıdaki uzun omurga tahtasına (Ferzo Backboard) yatırır.
+/do Şahıs omurga bütünlüğü korunarak araçtan tahliye edildi mi? Nörolojik bir kayıp gözleniyor mu?</pre></div>
+                </div>
+
+                <div id="sec12" class="section-card">
+                    <h2>12. Kırık / Çıkık & SAM Atel Uygulaması <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box">Kırık uzuvlarda distal nabız (parmak ucu nabzı) kontrol edilmeden sabitleme yapılmaz.</div>
+                    <div class="code-container"><pre>/me Şahsın şekil bozukluğu olan uzvunu (kol/bacak) el yordamıyla inceler; kırık uçlarının deriyi delip delmediğine bakar.
+/do Uzuvda açık kırık, kapalı kırık veya eklem çıkığı mevcut mu? Deformasyon seviyesi nedir?
+/me Uzvun uç noktasındaki (örneğin ayak başparmağı arkasındaki Dorsalis Pedis) nabzını kontrol eder.
+/do Distal nabız alınıyor mu? Dokuda dolaşım bozukluğuna bağlı soğukluk veya morarma var mı?
+/me Çantadan rulo halindeki turuncu/mavi alüminyum SAM Splint atelini çıkarır, hastanın sağlam uzvuna göre ölçü alarak büker.
+/me Ateli kırık bölgesinin bir üst ve bir alt eklemini kapsayacak şekilde uzvun altına yerleştirir.
+/me Elastik bandajı (Coban Kendinden Yapışkanlı Bandaj) atelin üzerinden dolayarak kırığı tamamen hareketsiz kılacak şekilde sarar.
+/do Atel sabitlemesi sonrası şahsın uzvundaki şekil bozukluğu korundu ve stabilizasyon sağlandı mı?</pre></div>
+                </div>
+
+                <div id="sec13" class="section-card">
+                    <h2>13. Periferik Damar Yolu & Plazma Yükleme <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box success-info">Şoktaki hastaya sıvı yüklemesi damar içindeki hacmi korumak için yapılır.</div>
+                    <div class="code-container"><pre>/me Şahsın koluna turnike bağlayarak venöz (toplardamar) dolgunluğu artırır; Antekübital bölgeyi palpe eder.
+/me Uygun damarı seçtiten sonra alkollü ve %2 Klorheksidinli bezle içeriden dışarıya doğru siler.
+/me 14 Gauge (Gri) veya 16 Gauge (Kahverengi) kalınlığındaki BD Venflon İntraketi 25 derecelik açıyla damara batırır.
+/do İntraketin arkasındaki şeffaf kılavuz haznesine (Flashback) koyu kırmızı renkli venöz kan geldi mi?
+/me İğnesini geriye doğru çekenken plastik kanülü damarın içine doğru sonuna kadar iter.
+/me Turnikeyi çözer, serum setinin ucunu intrakete bağlayarak vidalar ve Tegaderm şeffaf flasterle sabitler.
+/me %0.9 İzotonik Sodyum Klorür (Salin) veya Ringer Laktat serumunun vanasını açarak infüzyonu maksimum hızda başlatır.
+/do Serum akışı sorunsuz ilerliyor mu? Damar dışına sızma (infiltrasyon) veya şişlik var mı?</pre></div>
+                </div>
+
+                <div id="sec14" class="section-card">
+                    <h2>14. Taktik Kemik İçi (EZ-IO) Matkap Hattı <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box danger-info">Şok nedeniyle periferik damarları tamamen çökmüş hastalarda tek seçenek kemik iliğine girmektir.</div>
+                    <div class="code-container"><pre>/do Şahsın masif kan kaybına bağlı hipotansiyonu nedeniyle kollardaki tüm venöz damarlar çökmüş, intraket girilemiyor.
+/me Çantadan taktik medikal EZ-IO Kemik İçi Sürücüsünü (Matkabını) ve 25mm'lik mavi renkli proksimal tibial iğne setini çıkarır.
+/me Hastanın diz kapağının (Patella) 2 cm altına ve 1 cm iç kısmına inerek Tibial Tuberositi (kaval kemiği başı) alanını bulur.
+/me Bölgeyi batikonlu solüsyonla siler. Matkabın ucuna kilitlediği iğneyi dik açıyla kemiğe yerleştirir.
+/me Matkabın tetiğine basarak kemik dokusunu delmeye başlar. Matkap motorunun sesi duyulur.
+/do İğne kemik korteksini delip ilik boşluğuna (Medüller boşluk) ulaştığında tık sesiyle direnç kayboldu mu?
+/me Matkabı iğneden ayırır, içindeki çelik kılavuz teli çekerek çıkarır. İğne kemikte sabit kalır.
+/me Kemik içi (IO) uzatma hattını iğneye vidalar, BD 5cc enjektörle 5 ml salin basarak hattın açık olduğunu doğrular.
+/do Serum akışı doğrudan kemik iliği dolaşımına katılmaya başladı mı? Hat stabil mi?</pre></div>
+                </div>
+
+                <div id="sec15" class="section-card">
+                    <h2>15. Kritik İlaç Endikasyonları (IV/IO) <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box med-info">İlaç adları, dozları ve uygulama yolları birebir gerçek protokol kodlarıdır.</div>
+                    <div class="code-container"><pre>/me Çantasındaki şifreli/kilitli narkotik ve acil ilaç gözünü açarak vakaya uygun ampulü seçer.
+/me Ampulün boynunu kırar, steril enjektörün iğnesini batırarak sıvıyı çeker; enjektöre vurarak havasını çıkarır.
+
+* [Şiddetli Travma, Amputasyon & Ağrı Şoku]
+/me 10 mg Morfin Sülfat (Morphine) veya 100 mcg Fentanil (Sublimaze) ampulünü damar yolu portuna bağlar, 2 dakikada yavaşça zerk eder.
+/do Narkotik analjezik dolaşıma katıldı. Hastanın şiddetli travmatik ağrı belirtileri ve taşikardisi hafifliyor mu?
+
+* [Durdurulamayan Masif İç ve Dış Kanamalar]
+/me 1 gram Traneksamik Asit (TXA - Transamine) ampulünü 100 ml serum içine enjekte ederek 10 dakikalık infüzyonu başlatır.
+/do TXA pıhtılaşma kaskadını tetiklemek üzere sisteme dahil oldu. İç/dış kanama odaklarında yavaşlama var mı?
+
+* [Kardiyak Arrest / CPR Esnası]
+/me 1 mg Epinefrin (Adrenalin 1:10000) enjektörünü damar yolundan doğrudan ve hızla (Bolus) zerk eder.
+/me Arkasından iğneyi yıkamak ve ilacı kalbe ulaştırmak için 20 ml hızlı serum basar.
+/do Adrenalin alfa ve beta reseptörlerini uyardı. Kalp masajına devam edilirken ritimde değişiklik var mı?
+
+* [Aşırı Doz Opioid / Uyuşturucu Zehirlenmesi]
+/me 2 mg Naloksan (Narcan) nazal spreyini hazır eder, şahsın burun deliğine yerleştirerek pistonu hızla iterek zerk eder.
+/do Narcan opioid reseptörlerini bloke etmeye başladı. Şahsın solunum baskılanması (depresyonu) düzeliyor mu?</pre></div>
+                </div>
+
+                <div id="sec16" class="section-card">
+                    <h2>16. Turnike Gevşetme (Tourniquet Conversion) <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box success-info">Güvenli alana geçildiğinde uzvun nekroza (kangren) uğramaması için turnike gevşetme denenir.</div>
+                    <div class="code-container"><pre>/do Sahada ilk müdahalede takılan CAT turnikenin üzerinden 45 dakika geçtiği doğrulanır. Temas bitti.
+/me Turnikenin altındaki yara paketlemesini ve İsrail bandajını açarak dokudaki pıhtı durumunu inceler.
+/me Turnike sıkıştırma çubuğunu çok yavaşça, milimetrik olarak ters yönlü çevirerek baskıyı hafifletir.
+/do Turnike gevşetildiğinde altındaki ana arterden fışkıran aktif bir kanama odağı nüksetti mi?
+/me Kanama olmadığını görerek turnikeyi tamamen gevşetir ancak ani kanama riskine karşı gevşek halde uzuvda bırakır.
+/do Uzva giden kan akışı (perfüzyon) normale döndü mü? Parmak uçları pembeleşmeye başladı mı?</pre></div>
+                </div>
+
+                <div id="sec17" class="section-card">
+                    <h2>17. Taktik Kardiyak Arrest (CPR / AED Şok) <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box danger-info">CPR esnası solunum desteği taktik sahada BVM (Ambu) maskesi ile sağlanır.</div>
+                    <div class="code-container"><pre>/do Hastada nabız yok, solunum durmuş, göz bebekleri ışığa yanıtsız; hasta Klinik Ölüm (Arrest) safhasında.
+/me Hastayı sert zemin üzerine sırtüstü yatırır, sternum (göğüs kemiği) orta noktasını belirler.
+/me İki elini kenetleyerek dirseklerini kilitler, vücut ağırlığıyla dakikada 110 hızında kompresyona (kalp masajına) başlar.
+/me Masajı 30 kompresyon - 2 suni solunum (Ambu maskesi basımı) olacak şekilde ritme bağlar.
+/me Yanındaki Zoll AED Plus Otomatik Eksternal Defibrilatör cihazını açar; sesli komutları dinler.
+/me Cihazın CPR-D-padz şok pedlerini hastanın sağ köprücük kemiğinin altına ile sol meme ucunun yanına yapıştırır.
+/me Cihazın kablosunu ana üniteye takar, masajı durdurarak çevreye bağırır: "Herkes çekilsin! Ritim analizi yapılıyor!"
+/do Cihazdan "Şok Öneriliyor, Hastaya Dokunmayın!" sesli uyarısı ve yüksek frekanslı şarj sesi geldi mi?
+/me AED üzerindeki kırmızı/turuncu renkli "SHOCK" butonuna basarak elektroşoku hastanın kalbine iletir.
+/me Şok akımının verilmesiyle birlikte hastanın gövdesi yataktan hafifçe irkilerek yükselir ve düşer.
+/me Hiç vakit kaybetmeden ellerini tekrar yerleştirerek kalp masajı turuna (2 dakika) kaldığı yerden devam eder.
+/do Nabız kontrolünde spontan geri dönüş (ROSC) sağlandı mı? Monitörde sinüs ritmi belirdi mi?</pre></div>
+                </div>
+
+                <div id="sec18" class="section-card">
+                    <h2>18. Taktik Telsiz Protokolü (9-Line MEDEVAC) <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box success-info">MEDEVAC anonsları harf hatası kabul etmez; NATO fonetik alfabesi kullanılır.</div>
+                    <div class="code-container"><pre>/me Harris AN/PRC-152 taktik telsizin mandalına basarak panik yapmadan, net ve otoriter bir ses tonuyla komuta merkezine anons geçer:
+/me "Marshal Tactical Medic, tüm istasyonların dikkatine. Acil 9-Line MEDEVAC raporu geçiyorum, kaydedin."
+/me "Line 1 (Konum): Grid [KOORDİNAT YAZ] | Line 2 (Frekans): USMS Med-1 / Çağrı Kodu: Medic-1"
+/me "Line 3 (Yaralı): [SAYI] adet Kırmızı Kod (Acil), [SAYI] adet Sarı Kod (Stabil)"
+/me "Line 4 (Ekipman): EZ-IO ve İntubasyon kiti, Ventilatör desteği gerekli."
+/me "Line 5 (Tür): Çoklu Ateşli Silah Yaralanması ve Uzuv Kopma riski."
+/me "Line 6 (Güvenlik): Sierra Bölgesi tamamen temizlendi, tehdit unsuru yok (Hot Zone değil)."
+/me "Line 7 (İşaretleme): İniş alanı Yeşil Duman (Smoke M18) bombası ile işaretlenecek."
+/me "Line 8 (Kimlik): [SAYI] USMS Personeli, [SAYI] Şüpheli şahıs."
+/me "Line 9 (KBRN): Kimyasal ajan veya gaz tehdidi rapor edilmedi. Hava tahliye unsurlarını acil sevk edin, tamam."
+/do Telsiz komuta merkezi anonsu onayladı mı? Helikopter tahliye süresi (ETA) kaç dakika olarak bildirildi?</pre></div>
+                </div>
+
+                <div id="sec19" class="section-card">
+                    <h2>19. Muharebe Psikolojisi & Şok Yönetimi <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box success-info">Ağır çatışma travması geçiren şahıslar geçici olarak etrafı duyamaz (akustik tünelleşme).</div>
+                    <div class="code-container"><pre>/me Çatışmanın ortasında histeri krizi geçiren, titreyen ve silahını kontrolsüz sallayan personelin yanına koşar.
+/me Personelin namlusunu hemen yere doğru çevirerek emniyete alır, omuzlarından iki eliyle sertçe yakalar.
+/me Personeli sarsarak dikkati kendi üzerinde toplar, yüzünü onun yüzüne yaklaştırarak göz teması kurar.
+/me Yüksek ve kararlı bir tonda bağırır: "Gözlerime bak! Benimlesin! Marshal Medikal burada! Çatışma bitti!"
+/me Personelin elini kendi göğsüne koyar, nefes alışverişini senkronize eder: "Benimle derin nefes al... Ver..."
+/do Personelin gözlerindeki boş bakışlar dağıldı mı? Oryantasyonu yerine gelerek komutları uygulamaya başladı mı?</pre></div>
+                </div>
+
+                <div id="sec20" class="section-card">
+                    <h2>20. Çoklu Afet Sahası Triyaj Sistemi (S.T.A.R.T.) <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box danger-info">Sınırlı medikal kaynakları doğru kullanmak adına hastalar renkli kartlarla etiketlenir.</div>
+                    <div class="code-container"><pre>/me Çoklu yaralının olduğu olay yerine girer, megafonla veya yüksek sesle bağırır: "Yürüyebilen tüm yaralılar sağ taraftaki güvenli duvara doğru geçsin!"
+/do Hafif yaralılar (YEŞİL KOD) yürüyerek alandan ayrıldı mı? Yerde kalan hareketsiz hastaların yanına koşar.
+/me İlk hastanın yanına çöker, solunumunu saniyede ölçer. Solunum yoksa hava yolunu açar.
+/do Hava yolu açılmasına rağmen solunum başlamadıysa hastaya SİYAH KOD (Ölü/Kurtarılamaz) kartı takıp diğerine mi geçiyor?
+/me İkinci hastanın solunum hızının dakikada 30'un üzerinde olduğunu veya şah damarı nabzının ipliksi olduğunu saptar.
+/do Bu hastanın hayati tehlikesi olduğundan göğsüne KIRMIZI KOD (Acil Müdahale) kartı yapıştırıp ilk sıraya mı alıyor?
+/me Bilinci açık, solunumu 20 olan, kanaması turnikeyle durdurulmuş hastaya SARI KOD (Geciktirilebilir) kartı takar.
+/do Triyaj haritası çıkarıldı mı? Müdahale sırası Kırmızı -> Sarı -> Yeşil şeklinde mi ilerliyor?</pre></div>
+                </div>
+
+                <div id="sec21" class="section-card">
+                    <h2>21. Gelişmiş Şah Damarı Santral Kateteri (Central Venous Catheter) <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box med-info">Hastanede yoğun ilaç ve sıvı desteği alacak hastalarda ana merkeze (büyük damara) girme yöntemidir.</div>
+                    <div class="code-container"><pre>/do Hastanın acil servise kabulü yapıldı. Yoğun bakım takibi için Santral Venöz Hat (CVC) açılması kararlaştırıldı.
+/me Hastanın başını sola doğru çevirer, sağ boyun bölgesindeki İnternal Juguler Ven (şah damarı yanı) hattını palpe eder.
+/me Bölgeyi steril örtülerle çevreler, klorheksidin ile 3 kez silerek cerrahi alan oluşturur.
+/me Çantadan Arrow 7-French Üç Lümenli Santral Kateter setini çıkarır; uzun kılavuz iğneyi ultrason eşliğinde boyun damarına doğru yönlendirir.
+/do İğne ucundan enjektöre parlak olmayan, koyu renkli, tazyiksiz venöz kan gelmeye başladı mı? Damara girildi mi?
+/me Seldinger yöntemiyle iğnenin içinden esnek kılavuz teli (J-Tip Guide-wire) damarın içine doğru ilerletir.
+/me Kılavuz tel üzerinden iğneyi çeker, teli boyunda bırakır. Dilatör (genişletici) aparatını tel üzerinden geçirerek delik açar.
+/me Üç lümenli (girişli) Santral Kateter borusunu tel üzerinden damara kaydırır; teli geri çekerek çıkarır.
+/me Kateterin her üç girişinden de kan çekip yıkayarak çalıştığını doğrular, kateteri boyun cildine 3-0 İpek (Silk) dikişle sabitler.
+/do Santral hat başarıyla açıldı mı? Büyük hacimli ilaç/sıvı yüklemesi için sistem hazır mı?</pre></div>
+                </div>
+
+                <div id="sec22" class="section-card">
+                    <h2>22. Gelişmiş Radyolojik Tanı (BT / MR / Röntgen) <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box success-info">İç hasarların tespiti, ameliyat planlamasının ve kesi yerinin belirlenmesi için şarttır.</div>
+                    <div class="code-container"><pre>* [Röntgen - İskelet Sistemi ve Şrapnel Kontrolü]
+/me Hastayı Siemens Multix Röntgen masasına yatırır, yaralı bölgenin altına dijital DR kaseti yerleştirir.
+/me Röntgen tüpünü yaranın üzerine odaklar, kurşun korumalı odadan çıkıp panel arkasındaki çekim butonuna basar.
+/do Röntgen görüntüsü ekrana düştü mü? Kemik dokuda deplase (kaymış) kırık veya radyoopak metal parça var mı?
+
+* [Bilgisayarlı Tomografi (BT) - İç Kanama & Organ Rüptürü]
+/me İç kanama şüphesi olan hastayı GE Revolution BT cihazının motorlu yatağına alır, cihazın gantry (tünel) ayarlarını yapar.
+/me Kontrol odasından kontrastlı (Omnipaque opak ilaçlı) tüm batın ve toraks (göğüs) taramasını başlatır. Cihaz dönerek çekim yapar.
+/do BT kesitlerinde karın boşluğunda serbest sıvı (kan), dalak/karaciğer yırtılması veya beyinde kanama saptandı mı?
+
+* [Emar (MR) - Yumuşak Doku, Bağ Dokusu und Sinir Hasarı]
+/me Hastanın üzerinde hiçbir manyetik alan etkileşimli metal (saat, protez, implant) olmadığını kesinleştirir.
+/me Hastayı Philips Ingenia 3T MR tüneline kaydırır, tarayıcı bilgisayardan spinal (omurilik) ve sinir kökü görüntüleme protokolünü tetikler.
+/do MR görüntülerinde sinir kopması, bağ doku yırtılması veya omurilik basısı izleniyor mu?</pre></div>
+                </div>
+
+                <div id="sec23" class="section-card">
+                    <h2>23. Ameliyathane Anestezi & Sterilizasyon (Pre-Op) <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box danger-info">Genel anestezi altındaki hastanın tüm hayati fonksiyonlarını solunum cihazı (ventilatör) üstlenir.</div>
+                    <div class="code-container"><pre>/me Ameliyathane yıkama alanına geçer, ayak pedine basarak steril suyu akıtır, fırçayla ellerini dirseklere kadar yıkar.
+/me Steril havluyla kurulandıktan sonra yeşil cerrahi önlüğü ve pudrasız steril eldivenleri asiste edilerek giyer.
+/me Anestezi uzmanına bakar: "Hastayı indüksiyona alabiliriz, genel anesteziyi başlatın."
+/me Anestezi uzmanı damar yolundan 200 mg Propofol (Diprivan) ve 50 mg Rokuronyum (Esmeron) enjekte eder.
+/do İlaçların etkisiyle hastanın bilinci tamamen kapandı mı? Kas tonusu gevşeyerek spontan solunumu durdu mu?
+/me Macintosh 3 numara Laringoskop cihazını hastanın ağzından sokarak vokal kordları (ses tellerini) açığa çıkarır.
+/me 7.5mm Endotrakeal tüpü (soluk borusu tüpünü) vokal kordların arasından trakeaya doğru dikkatlice ilerletir.
+/me Tüpün kılavuzunu (Stile) çıkarır, kafını şişirir ve tüpü Dräger Primus Ventilatör (Solunum Cihazı) hattına bağlar.
+/do Ventilatör ekranında karbondioksit (EtCO2) dalgası belirdi mi? Akciğerler cihazla havalanıyor mu?</pre></div>
+                </div>
+
+                <div id="sec24" class="section-card">
+                    <h2>24. Cerrahi Kesim & Koter Damar Yakma <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box med-info">Cerrahi koter kullanımı ameliyat esnasında kan kaybını minimumda tutar.</div>
+                    <div class="code-container"><pre>/me Ameliyat masasındaki hastanın cildini %10'luk Batticon antiseptik solüsyonla dairesel hareketlerle boyar.
+/me Cerrahi alanı steril yeşil delikli kompres örtülerle kapatarak sadece kesi hattını açık bırakır.
+/me Sağ eline 10 numaralı steril bisturiyi (neşter) alır, cilde paralel olacak şekilde insizyonu (kesiyi) başlatır.
+/me Cilt ve cilt altı yağ dokusunu keserek aşağı iner. Açılan kılcal damarlardan sızan kanları görür.
+/me Sağ eline monopolar Covidien Valleylab Koter Kalemini alır, cihazın pedalına basarak kanayan damar uçlarına dokundurur.
+/do Koter ucundan çıkan elektrik akımıyla damarlar yandı mı (koagülasyon)? Cerrahi alan kanamasız ve temiz mi?</pre></div>
+                </div>
+
+                <div id="sec25" class="section-card">
+                    <h2>25. Derin Kurşun Çıkarma & Organ Dikimi <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box danger-info">İç organ yaralanmalarında doku bütünlüğünün korunması için emilebilir özel ipler (Vicryl) tercih edilir.</div>
+                    <div class="code-container"><pre>/me Otomatik Balfour Ekartörlerini yara dudaklarına yerleştirir ve açarak kasları gergin sabitler.
+/me Karın boşluğundaki kanı büyük cerrahi Yankauer aspiratör hortumuyla çekerek batın içi organları görünür kılar.
+/me Karaciğer lojuna saplanmış olan deforme kurşun çekirdeğini parmağıyla hissederek yerini doğrular.
+/me Uzun cerrahi Overholt forsepsini (kargaburun cımbız) yavaşça doku arasına ilerletir, kurşun çekirdeğini kenarlarından kavrar.
+/me Kurşunu dikey açıyla, etraftaki hepatik arterlere zarar vermeden yukarı çeker ve böbrek küvete bırakır. *TIK*
+/do Kurşun çıkarıldıktan sonra karaciğer dokusundaki yırtılmadan sızıntı şeklinde kanama devam ediyor mu?
+/me Mathieu Portegü ucuna kilitlediği 2-0 emilebilir Vicryl dikiş iğnesiyle karaciğer yırtığını matres dikiş tekniğiyle diker.
+/me Düğümleri atarak dokuyu birbirine yaklaştırır. İçeriye steril sıcak serum fizyolojik dökerek yıkama (lavaj) yapar.
+/do Yıkama sonrası batın içinde yeni bir kanama odağı veya organ sızıntısı saptandı mı?</pre></div>
+                </div>
+
+                <div id="sec26" class="section-card">
+                    <h2>26. İleri Ortopedik Eksternal Fiksasyon (Çivili Kırık Sabitleme) <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box med-info">Parçalı açık kırıklarda kemiğin alçıya alınması imkansızdır; dışarıdan demir kafes kurulur.</div>
+                    <div class="code-container"><pre>/do Hastanın uyluk kemiğinde (Femur) kurşun parçalamasına bağlı parçalı, açık, stabil olmayan büyük kırık mevcut.
+/me Cerrahi alanı temizledikten sonra Stryker ortopedik elektrikli matkabı ve 5.0mm titanyum Schanz vidalarını (çivilerini) hazır eder.
+/me Kırık hattının üstündeki sağlam kemik dokusuna matkapla dik açıyla girerek ilk kalın vidayı kemiğe vidalar.
+/me Aynı işlemi kırık hattının altındaki sağlam kemik dokusuna da uygulayarak ikinci çiviyi çakar.
+/do Çiviler kemik korteksine tamamen oturdu mu? Sallantı veya gevşeklik var mı?
+/me Dışarıda kalan vida uçlarına Hoffmann-III metal karbon barlarını (karbon rodlar) yerleştirerek birleştirir.
+/me Somunları cerrahi tork anahtarı yardımıyla sıkarak dış iskeleti (Eksternal Fiksasyonu) kilitler.
+/do Kemiğin mekanik ekseni düzeltildi mi? Kırık uçları tamamen hareketsiz kılınarak sabitlendi mi?</pre></div>
+                </div>
+
+                <div id="sec27" class="section-card">
+                    <h2>27. Ameliyatta Acil Kan Transfüzyonu (Blood Transfusion) <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box danger-info">Yanlış kan grubu verilmesi akut hemolitik reaksiyona (anında ölüme) neden olur.</div>
+                    <div class="code-container"><pre>/do Hastanın ameliyattaki masif kan kaybına bağlı hemoglobin (Hb) seviyesi 6 g/dL'ye düştü, kardiyak arrest riski yüksek.
+/me Kan merkezinden gelen 2 ünite Eritrosit Süspansiyonunun (ES) etiketini hastanın dosyasındaki kan grubuyla çapraz kontrol (Cross-match) eder.
+/do Kan grubu [KAN GRUBU] olarak hastanınkiyle birebir eşleşiyor mu? Son kullanma tarihi uygun mu?
+/me Kan torbasını özel filtreli kan verme setine takar, Belmont Hızlı Kan Isıtıcı cihazından geçirerek damar yoluna bağlar.
+/me Kanın akış hızını dakikada 60 damla olacak şekilde ayarlar, hastanın vücut sıcaklığını ve EKG ritmini takibe alır.
+/do Transfüzyon başladı. Monitörde ani hipotansiyon, ateş veya döküntü gibi alerjik/hemolitik reaksiyon var mı?</pre></div>
+                </div>
+
+                <div id="sec28" class="section-card">
+                    <h2>28. Göğüs Tüpü Takılması (Torasentez / Chest Tube) <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box med-info">Akciğer boşluğundaki yaygın kan birikmesini (Hemotoraks) boşaltmak için göğüs tüpü şarttır.</div>
+                    <div class="code-container"><pre>/do Akciğer zarları arasında (Plevral boşluk) biriken masif kan nedeniyle sol akciğer tamamen sönmüş (Kollabe).
+/me Hastanın koltuk altındaki 5. interkostal aralığı (meme ucu hizası, Midaksiller hat) belirler, %2'lik Citanest ile lokal anestezi yapar.
+/me 10 numara bisturi ile cilde 3 cm'lik yatay kesi atar. Cerrahi Kelly klemp yardımıyla interkostal kasları yırtarak ilerler.
+/me Klempi plevra zarını delmek için bastırır. *POP* sesiyle akciğer boşluğuna girilir.
+/do Boşluğa girilmesiyle birlikte kesi yerinden dışarıya koyu renkli kan fışkırması veya hava çıkışı oldu mu?
+/me Parmağını delikten sokarak içeride pıhtı veya yapışıklık olup olmadığını kontrol eder.
+/me 28 French kalınlığındaki Atrium düz göğüs tüpünü delikten içeriye, akciğerin arkasına doğru yönlendirerek iter.
+/me Tüpün dış ucunu Atrium Oasis kuru tip su altı drenaj şişesine bağlar. Şişede kan birikmeye başlar.
+/me Göğüs tüpünü göğüs cildine 2-0 İpek dikişle "U" tekniğiyle sabitleyerek etrafını vazelinli gazlı bezle kapatır.
+/do Akciğer boşluğundaki kan şişeye drene olmaya (akmaya) başladı mı? Solunum sesleri geri geldi mi?</pre></div>
+                </div>
+
+                <div id="sec29" class="section-card">
+                    <h2>29. Yoğun Bakım Ekstübasyon Protokolü (Uyandırma) <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box success-info">Hastanın kendi solunumunun cihaza karşı direnç göstermesi uyanma belirtisidir.</div>
+                    <div class="code-container"><pre>/me Ameliyattan çıkan hastayı Yoğun Bakım Ünitesindeki (ICU) yatağına alır, ventilatör parametrelerini ayarlar.
+/me Monitördeki EKG, satürasyon ve idrar çıkışı değerlerini inceler. Vitals stabil durumdadır.
+/me Solunum cihazına giden Sevofluran anestezi gazlarını tamamen kapatır, hastaya giden sedasyonu keser.
+/me Hastanın omuzuna dokunarak seslenir: "[İSİM], beni duyuyorsan elimi sık. Ameliyatın bitti."
+/do Hasta gözlerini hafifçe araladı mı? Solunum cihazına karşı öksürme ve kendi kendine nefes alma tetiklendi mi?
+/me Hastanın ağız içindeki tükürük ve salgıları Medela cerrahi aspiratörle çeker, tüpün kafındaki havayı enjektörle söndürür.
+/me Hastaya "Derin bir nefes al ve öksür" komutu vererek boğazındaki Endotrakeal Tüpü tek bir hamlede çekerek çıkarır (Ekstübasyon).
+/me Şahsın burnuna nazal oksijen kanülü takar, dakikada 4 litre temiz oksijen vererek vital takibine devam eder.</pre></div>
+                </div>
+
+                <div id="sec30" class="section-card">
+                    <h2>30. Yasal İdam / İnfaz Enjeksiyonu (Lethal Injection) <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box danger-info">Yasal ölüm cezası infazlarında sırasıyla anestezi, felç edici ve kalbi durdurucu kimyasallar verilir.</div>
+                    <div class="code-container"><pre>/me Mahkumu infaz yatağına yatırarak göğüs, bel ve uzuv kayışlarını hareket kabiliyetini sıfırlayacak şekilde kilitler.
+/me Sağ ve sol kollardan 18 Gauge (Yeşil) intraketlerle çift taraflı (yedekli) damar yollarını açar, serum akışını başlatır.
+/me EKG elektrotlarını mahkumun göğsüne bağlayarak kalp ritmini ana ekrana yansıtır. Monitör ritmi stabildir.
+/me İnfaz emrinin gelmesiyle 1. şırıngayı (5 gram Sodyum Tiyopental / Pentothal anestezik) damar yoluna kilitler ve zerk eder.
+/do Anestezik madde dolaşıma katıldı. Mahkum derin uyku fazına geçti mi? Kirpik refleksi negatif mi?
+/me 2. şırıngayı (100 mg Pankuronyum Bromür / Pavulon kas gevşetici) damar yoluna bağlar ve enjekte eder.
+/do Kas gevşetici kimyasal diyaframı felç etti mi? Mahkumun solunum hareketleri tamamen durdu mu?
+/me 3. ve son şırıngayı (240 mEq Potasyum Klorür / KCl kalbi durdurucu) damar yoluna bağlayarak hızlıca zerk eder.
+/do Potasyum iyonları kalp kasını bloke etti mi? EKG monitöründeki sinüs ritmi düz çizgiye (Asistoli) döndü mü?
+/me Cihazdan gelen kesintisiz *BİİİİİP* sesinin ardından kalem feneriyle mahkumun göz bebeklerini kontrol eder.
+/me Pupillerin fikse dilate (tam büyümüş ve ışığa yanıtsız) olduğunu görür, Littmann stetoskopla 1 dakika kalp sesini dinler.
+/me Ölüm zamanını onaylar: "Mahkumun infazı tamamlanmıştır. Ölüm saati: [SAAT]."</pre></div>
+                </div>
+
+                <div id="sec31" class="section-card">
+                    <h2>31. Klinik Ölüm (Exitus / Ölüm Onay Prosedürü) <button class="card-copy-btn" onclick="copySectionBlock(this)"><i class="fa-solid fa-copy"></i> Bloğu Kopyala</button></h2>
+                    <div class="info-box danger-info">Tüm tıbbi resüsitasyon (CPR) çabalarına rağmen geri döndürülemeyen hastanın hukuki ölüm tespitidir.</div>
+                    <div class="code-container"><pre>/do Yapılan tüm ileri yaşam desteği müdahalelerine, elektroşoklara ve ilaç enjeksiyonlarına rağmen hastadan yanıt alınamadı.
+/me Kalem feneriyle hastanın göz kapaklarını açar, ışık tutar; pupillerin tamamen büyüdüğünü (Fikse Dilate) saptar.
+/do Göz bebekleri ışığa hiçbir daralma reaksiyonu vermiyor (Işık refleksi negatif).
+/me Littmann stetoskop tamburunu hastanın sol meme ucunun altına (apeks) yerleştirerek 1 dakika boyunca pürdikkat dinler.
+/me Aynı anda sağ eliyle karotis arter (şah damarı) üzerindeki nabız hattını basılı tutarak bekler.
+/do Kalp sesleri tamamen işitilmez durumda, spontan solunum yok ve arteriyel nabız alınamıyor (Flatline).
+/me Taktik kol saatine bakarak ölüm anını netleştirir, telsiz mandalına basarak merkeze anons geçer:
+/me "Marshal Tactical Medic, tüm istasyonların dikkatine. Olay yerindeki [İSİM/EŞKAL] şahsın yapılan tüm resüsitasyon müdahalelerine rağmen kurtarılamayarak EX olduğu tespit edilmiştir. Ölüm Saati: [SAAT VAKTİ]. Adli Tabip ve Olay Yeri İnceleme birimleri sevk edilsin, tamam."
+/me Hastaya müdahale esnasında takılmış olan hiçbir intraket, turnike, göğüs tüpü veya bandajı adli kanıt niteliği taşıdığı için sökmez, olduğu gibi bırakır.
+/me Çantasından siyah renkli kalın ceset torbasını (Heavy-Duty Body Bag) çıkararak naaşın yanına serer.
+/me Çevre personelden destek alarak cenazeyi aksiyel omurga hattını bozmadan bütün halinde ceset torbasının içine kaydırır.
+/me Cenazenin yüzünü son kez kontrol ettikten sonra torbanın fermuarını yukarıya doğru çekerek tamamen kapatır.
+/me Torba üzerindeki şeffaf veri cebine şahsın bilgilerini, ölüm nedenini ve saatini içeren "Exitus Kartını" yerleştirir.
+/do Naaş adli tıp birimleri gelene kadar olay yerinde muhafaza altına alındı mı?</pre></div>
+                </div>
+
             </div>
         </div>
     </div>
 
+    <!-- JAVASCRIPT SISTEM KONTROLLERİ -->
     <script>
-        const CORRECT_PASSWORD = "musa32"; // Yeni şifre burada
+        const CORRECT_PASSWORD = "musaku32"; 
 
         function checkPassword() {
             const inputField = document.getElementById("password-field");
+            const errorMsg = document.getElementById("error-msg");
+            const overlay = document.getElementById("login-overlay");
+            const app = document.getElementById("main-app");
+
             if (inputField.value === CORRECT_PASSWORD) {
-                document.getElementById("login-overlay").style.display = "none";
-                document.getElementById("main-app").style.display = "grid";
+                overlay.style.display = "none";
+                app.style.display = window.innerWidth >= 768 ? "grid" : "flex";
             } else {
+                errorMsg.style.display = "block";
                 inputField.value = "";
-                alert("Hatalı Şifre!");
+                inputField.focus();
             }
         }
 
-        function copyText(btn) {
-            const text = btn.closest('.section-card').querySelector('pre').innerText;
-            navigator.clipboard.writeText(text);
-            btn.innerText = "Kopyalandı!";
-            setTimeout(() => btn.innerText = "Kopyala", 2000);
+        // Pürüzsüz kaydırma ve aktif menü seçimi
+        function scrollSec(id, element) {
+            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+            
+            const target = document.getElementById(id);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Tırnak işaretlerinden etkilenmeyen blok bazlı güvenli kopyalama mekanizması
+        function copySectionBlock(btn) {
+            const preBlock = btn.closest('.section-card').querySelector('pre');
+            if (preBlock) {
+                navigator.clipboard.writeText(preBlock.innerText).then(() => {
+                    const originalText = btn.innerHTML;
+                    btn.innerHTML = '<i class="fa-solid fa-check"></i> Kopyalandı!';
+                    btn.style.backgroundColor = 'rgba(52, 211, 153, 0.4)';
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.style.backgroundColor = 'rgba(52, 211, 153, 0.15)';
+                    }, 1500);
+                }).catch(err => {
+                    alert("Kopyalama başarısız oldu: " + err);
+                });
+            }
+        }
+
+        // Akıllı filtreleme ve anlık arama fonksiyonu
+        function filterContent() {
+            const filter = document.getElementById("search-input").value.toUpperCase();
+            const cards = document.querySelectorAll(".section-card");
+            
+            cards.forEach(card => {
+                const title = card.querySelector("h2").innerText;
+                const info = card.querySelector(".info-box") ? card.querySelector(".info-box").innerText : "";
+                const code = card.querySelector("pre").innerText;
+                
+                const masterText = (title + " " + info + " " + code).toUpperCase();
+                
+                if (masterText.indexOf(filter) > -1) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
         }
     </script>
 </body>
