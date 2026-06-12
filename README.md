@@ -1,29 +1,28 @@
 <li class="menu-item" onclick="scrollSec('about')">🏥 Hakkımızda</li>
+<li class="menu-item" onclick="scrollSec('leadership')">⭐ Yönetim Kadrosu</li>
 <li class="menu-item" onclick="scrollSec('personnel')">👥 Personel Listesi</li>
-<li class="menu-item" onclick="scrollSec('academy')">📚 Eğitim Akademisi</li>
+<li class="menu-item" onclick="scrollSec('academy')">📚 EMS Akademi</li>
 <li class="menu-item" onclick="scrollSec('announcements')">📢 Duyurular</li>
-<li class="menu-item" onclick="scrollSec('leadership')">⭐ Yönetim Kadrosu</li><!-- EMS SUPERVISOR EK BÖLÜMLER -->
+<!-- EMS SUPERVISOR DEPARTMENT -->
 
 <div id="about" class="section-card">
     <h2>EMS SUPERVISOR DEPARTMENT</h2>
 
     <div class="info-box success-info">
-        EMS Supervisor Department, Los Santos EMS bünyesinde görev yapan sağlık personellerinin yönetimi, eğitim faaliyetleri ve operasyonel denetimlerinden sorumludur.
+        EMS Supervisor Department, EMS personellerinin eğitim, yönetim ve operasyonel denetimlerinden sorumludur.
     </div>
 
     <pre>
-MİSYONUMUZ
+LOS SANTOS EMS
 
-• EMS standartlarını korumak
-• Personel eğitimlerini yürütmek
-• Olay yeri yönetimini sağlamak
-• Sağlık hizmetlerinde kaliteyi artırmak
-• EMS personellerinin gelişimini desteklemek
+MİSYON
+• Personel yönetimi
+• Operasyon denetimi
+• Eğitim faaliyetleri
+• Kalite kontrol
 
-VİZYONUMUZ
-
-Şehir genelinde en disiplinli ve profesyonel
-sağlık teşkilatını oluşturmak.
+VİZYON
+Şehrin en profesyonel EMS teşkilatını oluşturmak.
     </pre>
 </div>
 
@@ -40,9 +39,6 @@ Supervisor
 Assistant Supervisor
 • BOŞ
 
-Chief Paramedic
-• BOŞ
-
 Training Officer
 • BOŞ
 
@@ -55,11 +51,8 @@ Field Coordinator
     <h2>PERSONEL LİSTESİ</h2>
 
     <pre>
-AKTİF PERSONEL
-
 PARAMEDIC
 ━━━━━━━━━━━━━━━━━━━━━━
-• İsim Soyisim
 • İsim Soyisim
 • İsim Soyisim
 
@@ -67,11 +60,9 @@ EMT
 ━━━━━━━━━━━━━━━━━━━━━━
 • İsim Soyisim
 • İsim Soyisim
-• İsim Soyisim
 
 TRAINEE
 ━━━━━━━━━━━━━━━━━━━━━━
-• İsim Soyisim
 • İsim Soyisim
     </pre>
 </div>
@@ -80,25 +71,16 @@ TRAINEE
     <h2>EMS AKADEMİ</h2>
 
     <div class="info-box">
-        EMS personellerinin tamamlaması gereken eğitim modülleri.
+        Güncel eğitim programları.
     </div>
 
     <pre>
-TEMEL EĞİTİMLER
-
 ✓ CPR / AED
 ✓ Travma Yönetimi
 ✓ Kanama Kontrolü
-✓ Kırık ve Çıkık Müdahalesi
-✓ Telsiz Kullanımı
-
-İLERİ EĞİTİMLER
-
 ✓ Taktik EMS
-✓ Çoklu Yaralı Yönetimi
+✓ Çoklu Yaralı Müdahalesi
 ✓ İleri Yaşam Desteği
-✓ Kritik Hasta Nakli
-✓ Operasyonel Liderlik
     </pre>
 </div>
 
@@ -106,25 +88,17 @@ TEMEL EĞİTİMLER
     <h2>EMS DUYURULARI</h2>
 
     <div class="info-box med-info">
-        Güncel EMS duyuruları bu bölümde yayınlanacaktır.
+        Güncel duyurular burada paylaşılır.
     </div>
 
     <pre>
 [12.06.2026]
-
-EMS Supervisor toplantısı
-Saat: 21:00
-
-━━━━━━━━━━━━━━━━━━━━━━
+EMS Supervisor Toplantısı
 
 [11.06.2026]
-
-Yeni personel alımları başlamıştır.
-
-━━━━━━━━━━━━━━━━━━━━━━
+Yeni Personel Alımı Başladı
 
 [10.06.2026]
-
-Taktik EMS eğitimi tamamlanmıştır.
+EMS Eğitim Güncellemesi Yayınlandı
     </pre>
 </div>
