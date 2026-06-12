@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resmi Yönetim Sistemi</title>
-    <!-- FontAwesome İkonları ve Google Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
@@ -12,7 +11,8 @@
         :root {
             --bg-main: #0f172a;
             --bg-sidebar: #1e293b;
-            --bg-card: #334155;
+            --bg-card: #1e293b;
+            --bg-item: #334155;
             --accent-color: #ef4444; /* EMS Kırmızısı */
             --accent-hover: #dc2626;
             --text-main: #f8fafc;
@@ -201,7 +201,7 @@
             display: flex;
             flex-direction: column;
             height: 100vh;
-            overflow: hidden; /* Ana dış çerçevenin taşmasını engelledik */
+            overflow: hidden;
         }
 
         .topbar {
@@ -255,35 +255,53 @@
             font-weight: 600;
         }
 
-        /* AŞAĞI YUKARI KAYMA ÖZELLİĞİ EKLENEN YER */
         .main-body {
             padding: 2rem;
             flex-grow: 1;
-            overflow-y: auto; /* İçeriğin dikeyde kaymasını sağladık */
+            overflow-y: auto;
         }
 
         .page-header {
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
         }
 
         .page-header h1 {
             font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- BÖLÜM VE KUTU DÜZENLEMELERİ --- */
+        .section-block {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
             font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .data-card {
-            background: var(--bg-sidebar);
+            background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 1.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
         }
 
-        /* Rol Komut Satırları Stili */
         .role-list {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 16px; /* Kutuların aralarını açtık */
         }
 
         .role-item {
@@ -291,22 +309,29 @@
             justify-content: space-between;
             align-items: center;
             background: var(--bg-main);
-            padding: 1rem;
+            padding: 1.2rem;
             border-radius: 8px;
-            border-left: 4px solid var(--accent-color);
+            border: 1px solid var(--border-color);
+            border-left: 5px solid var(--accent-color);
+            transition: transform 0.2s;
+        }
+
+        .role-item:hover {
+            transform: translateX(4px);
+            background: #131c2e;
         }
 
         .role-text {
             font-family: 'Courier New', Courier, monospace;
             font-weight: bold;
             color: #38bdf8;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
         }
 
         .role-desc {
             color: var(--text-muted);
-            font-size: 0.85rem;
-            margin-top: 4px;
+            font-size: 0.9rem;
+            margin-top: 6px;
             font-family: 'Inter', sans-serif;
             font-weight: normal;
         }
@@ -315,7 +340,7 @@
             background: var(--accent-color);
             border: none;
             color: white;
-            padding: 6px 12px;
+            padding: 8px 16px;
             border-radius: 6px;
             cursor: pointer;
             font-weight: 600;
@@ -347,7 +372,7 @@
         }
 
         .data-table th, .data-table td {
-            padding: 1rem;
+            padding: 1.2rem;
             border-bottom: 1px solid var(--border-color);
         }
 
@@ -359,7 +384,7 @@
         }
 
         .badge {
-            padding: 4px 8px;
+            padding: 6px 12px;
             border-radius: 6px;
             font-size: 0.8rem;
             font-weight: 600;
@@ -367,17 +392,17 @@
         .badge-success { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
         
         .about-text {
-            line-height: 1.6;
+            line-height: 1.8;
             color: #cbd5e1;
+            font-size: 1.05rem;
         }
         .about-text p {
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
         }
     </style>
 </head>
 <body>
 
-    <!-- GİRİŞ EKRANI -->
     <div id="login-screen">
         <div class="login-card">
             <div class="login-logo">
@@ -396,9 +421,7 @@
         </div>
     </div>
 
-    <!-- ANA PANEL SİSTEMİ -->
     <div id="main-panel">
-        <!-- Sol Menü -->
         <aside class="sidebar">
             <div class="sidebar-brand">
                 <i class="fa-solid fa-shield-halved"></i>
@@ -412,9 +435,7 @@
             </ul>
         </aside>
 
-        <!-- Sağ İçerik -->
         <main class="content">
-            <!-- Üst Bar -->
             <div class="topbar">
                 <div class="search-box">
                     <i class="fa-solid fa-magnifying-glass"></i>
@@ -426,181 +447,90 @@
                 </div>
             </div>
 
-            <!-- Sayfa İçeriği -->
             <div class="main-body">
                 
-                <!-- BÖLÜM 1: MUAYENE KOMUTLARI -->
                 <div id="section-muayene" class="panel-section active-section">
                     <div class="page-header">
-                        <h1>Muayene Komutları (/me - /do)</h1>
+                        <h1>Muayene Komutları</h1>
                     </div>
-                    <div class="data-card">
-                        <div class="role-list">
-                            <div class="role-item">
-                                <div>
-                                    <div class="role-text">/me dizlerinin üzerine çöker ve yaralının nabzını kontrol etmeye başlar.</div>
-                                    <div class="role-desc">İlk müdahale nabız kontrolü.</div>
+                    
+                    <div class="section-block">
+                        <div class="section-title"><i class="fa-solid fa-heart-pulse"></i> İlk Kontrol Alanı</div>
+                        <div class="data-card">
+                            <div class="role-list">
+                                <div class="role-item">
+                                    <div>
+                                        <div class="role-text">/me dizlerinin üzerine çöker ve yaralının nabzını kontrol etmeye başlar.</div>
+                                        <div class="role-desc">İlk müdahale esnasında nabız ölçümü rolü.</div>
+                                    </div>
+                                    <button class="copy-btn" onclick="copyToClipboard('/me dizlerinin üzerine çöker ve yaralının nabzını kontrol etmeye başlar.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
                                 </div>
-                                <button class="copy-btn" onclick="copyToClipboard('/me dizlerinin üzerine çöker ve yaralının nabzını kontrol etmeye başlar.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                                <div class="role-item">
+                                    <div>
+                                        <div class="role-text">/do yaralının nabzı stabil midir, hayati belirtileri ne durumdadır?</div>
+                                        <div class="role-desc">Yaralının durumunu karşı tarafa sorma amaçlı atılan durum komutu.</div>
+                                    </div>
+                                    <button class="copy-btn" onclick="copyToClipboard('/do yaralının nabzı stabil midir, hayati belirtileri ne durumdadır?')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                                </div>
                             </div>
-                            <div class="role-item">
-                                <div>
-                                    <div class="role-text">/do yaralının nabzı stabil midir, hayati belirtileri ne durumdadır?</div>
-                                    <div class="role-desc">Yaralının genel durumunu öğrenmek için atılan do komutu.</div>
+                        </div>
+                    </div>
+
+                    <div class="section-block">
+                        <div class="section-title"><i class="fa-solid fa-stethoscopes"></i> Solunum ve İleri Muayene</div>
+                        <div class="data-card">
+                            <div class="role-list">
+                                <div class="role-item">
+                                    <div>
+                                        <div class="role-text">/me stetoskopu çıkartır, hastanın göğüs kafesine koyarak nefes alışını dinler.</div>
+                                        <div class="role-desc">Akciğerlerin ve solunum yollarının kontrol edilmesi rolü.</div>
+                                    </div>
+                                    <button class="copy-btn" onclick="copyToClipboard('/me stetoskopu çıkartır, hastanın göğüs kafesine koyarak nefes alışını dinler.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
                                 </div>
-                                <button class="copy-btn" onclick="copyToClipboard('/do yaralının nabzı stabil midir, hayati belirtileri ne durumdadır?')"><i class="fa-solid fa-copy"></i> Kopyala</button>
-                            </div>
-                            <div class="role-item">
-                                <div>
-                                    <div class="role-text">/me stetoskopu çıkartır, hastanın göğüs kafesine koyarak nefes alışını dinler.</div>
-                                    <div class="role-desc">Solunum yolları kontrolü.</div>
-                                </div>
-                                <button class="copy-btn" onclick="copyToClipboard('/me stetoskopu çıkartır, hastanın göğüs kafesine koyarak nefes alışını dinler.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- BÖLÜM 2: TEDAVİ KOMUTLARI -->
                 <div id="section-tedavi" class="panel-section">
                     <div class="page-header">
                         <h1>Tedavi ve Müdahale Komutları</h1>
                     </div>
-                    <div class="data-card">
-                        <div class="role-list">
-                            <div class="role-item">
-                                <div>
-                                    <div class="role-text">/me ilk yardım çantasından steril sargı bezini çıkartarak kanamalı bölgeye sarar.</div>
-                                    <div class="role-desc">Açık yaraları sarmak ve kanamayı durdurmak için.</div>
+                    
+                    <div class="section-block">
+                        <div class="section-title"><i class="fa-solid fa-droplet-slash"></i> Kanama ve Yara Müdahalesi</div>
+                        <div class="data-card">
+                            <div class="role-list">
+                                <div class="role-item">
+                                    <div>
+                                        <div class="role-text">/me ilk yardım çantasından steril sargı bezini çıkartarak kanamalı bölgeye sarar.</div>
+                                        <div class="role-desc">Aktif kanamaları durdurma ve pansuman amacıyla kullanılır.</div>
+                                    </div>
+                                    <button class="copy-btn" onclick="copyToClipboard('/me ilk yardım çantasından steril sargı bezini çıkartarak kanamalı bölgeye sarar.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
                                 </div>
-                                <button class="copy-btn" onclick="copyToClipboard('/me ilk yardım çantasından steril sargı bezini çıkartarak kanamalı bölgeye sarar.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
-                            </div>
-                            <div class="role-item">
-                                <div>
-                                    <div class="role-text">/me damar yolunu açar, serum setini bağlayarak hastaya sıvı takviyesi başlatır.</div>
-                                    <div class="role-desc">Serum bağlama rolü.</div>
-                                </div>
-                                <button class="copy-btn" onclick="copyToClipboard('/me damar yolunu açar, serum setini bağlayarak hastaya sıvı takviyesi başlatır.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
-                            </div>
-                            <div class="role-item">
-                                <div>
-                                    <div class="role-text">/do cerrahi müdahale başarılı geçmiş ve hastanın durumu normale dönmüştür.</div>
-                                    <div class="role-desc">Tedavi sonu durumu netleştirme.</div>
-                                </div>
-                                <button class="copy-btn" onclick="copyToClipboard('/do cerrahi müdahale başarılı geçmiş ve hastanın durumu normale dönmüştür.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- BÖLÜM 3: PERSONEL LİSTESİ -->
-                <div id="section-personel" class="panel-section">
-                    <div class="page-header">
-                        <h1>Sistem Personel Veritabanı</h1>
+                    <div class="section-block">
+                        <div class="section-title"><i class="fa-solid fa-syringe"></i> Damar Yolu ve İlaç/Serum Takviyesi</div>
+                        <div class="data-card">
+                            <div class="role-list">
+                                <div class="role-item">
+                                    <div>
+                                        <div class="role-text">/me damar yolunu açar, serum setini bağlayarak hastaya sıvı takviyesi başlatır.</div>
+                                        <div class="role-desc">Klinik veya saha ortamında stabilizasyon için sıvı aktarımı rolü.</div>
+                                    </div>
+                                    <button class="copy-btn" onclick="copyToClipboard('/me damar yolunu açar, serum setini bağlayarak hastaya sıvı takviyesi başlatır.')"><i class="fa-solid fa-copy"></i> Kopyala</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="data-card">
-                        <table class="data-table" id="staff-table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Rütbe / Görev</th>
-                                    <th>Durum</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>#01</td>
-                                    <td>Yönetici / Kurucu</td>
-                                    <td><span class="badge badge-success">Sistem Sahibi</span></td>
-                                </tr>
-                                <tr>
-                                    <td>#02</td>
-                                    <td>Sağlık Personeli</td>
-                                    <td><span class="badge badge-success">Aktif</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
 
-                <!-- BÖLÜM 4: HAKKIMIZDA -->
-                <div id="section-about" class="panel-section">
-                    <div class="page-header">
-                        <h1>Hakkımızda</h1>
-                    </div>
-                    <div class="data-card about-text">
-                        <p><strong>Bu sistem, tıbbi müdahale ve operasyon süreçlerini hızlandırmak, yönetim mekanizmasını tek bir resmî çatı altında toplamak amacıyla geliştirilmiştir.</strong></p>
-                        <p>Panel üzerindeki tüm veritabanı, komut akışları ve yönetim yetkileri tamamen şifrelenmiş olup, sadece sistem sahibi tarafından değiştirilebilir durumdadır. Üçüncü şahısların sistem kodları üzerinde düzenleme veya müdahale yetkisi bulunmamaktadır.</p>
-                        <p>Güvenli arama kutusu ve hızlı kopyalama altyapısı sayesinde sahadaki personelin en yüksek performansta çalışması hedeflenir.</p>
-                    </div>
-                </div>
-
-            </div>
-        </main>
-    </div>
-
-    <script>
-        // Şifre Kontrolü
-        function checkPassword() {
-            const passwordInput = document.getElementById('password-field').value;
-            const errorText = document.getElementById('error-text');
-            
-            if (passwordInput === "musaku32") {
-                document.getElementById('login-screen').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('login-screen').style.display = 'none';
-                    document.getElementById('main-panel').style.display = 'grid';
-                }, 500);
-            } else {
-                errorText.style.display = 'block';
-            }
-        }
-
-        document.getElementById('password-field').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') { checkPassword(); }
-        });
-
-        // Menü Geçişleri
-        function switchTab(tabName) {
-            document.querySelectorAll('.panel-section').forEach(sec => sec.classList.remove('active-section'));
-            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
-            
-            document.getElementById('section-' + tabName).classList.add('active-section');
-            document.getElementById('menu-' + tabName).classList.add('active');
-        }
-
-        // Kopyalama Fonksiyonu
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                alert("Komut başarıyla kopyalandı!");
-            });
-        }
-
-        // Arama Filtreleme
-        function filterContent() {
-            const filter = document.getElementById("search-input").value.toUpperCase();
-            
-            const items = document.querySelectorAll(".role-item");
-            items.forEach(item => {
-                const text = item.querySelector(".role-text").innerText;
-                const desc = item.querySelector(".role-desc").innerText;
-                if (text.toUpperCase().indexOf(filter) > -1 || desc.toUpperCase().indexOf(filter) > -1) {
-                    item.style.display = "";
-                } else {
-                    item.style.display = "none";
-                }
-            });
-
-            const rows = document.querySelectorAll("#staff-table tbody tr");
-            rows.forEach(row => {
-                const role = row.getElementsByTagName("td")[1]?.innerText || "";
-                if (role.toUpperCase().indexOf(filter) > -1) {
-                    row.style.display = "";
-                } else {
-                    row.style.display = "none";
-                }
-            });
-        }
-    </script>
-</body>
-</html>
+                    <div class="section-block">
+                        <div class="section-title"><i class="fa-solid fa-check-double"></i> Operasyon Sonu Durum Belirleme</div>
+                        <div class="data-card">
+                            <div class="role-list">
+                                <div class="role-item">
+                                    <div>
+                                        <div class="role-text">/do cerrahi müdahale başarılı geçmiş ve hastanın durumu normale dönmüştür.</div>
